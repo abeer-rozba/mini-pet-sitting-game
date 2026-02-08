@@ -6,6 +6,23 @@ html {
   height: 100%;
 }
 
+.status-container {
+  display: flex;
+  justify-content: space-evenly;
+  visibility: hidden;
+}
+
+.status-bar {
+  background-color: rgb(116, 194, 92);
+  border-radius: 15px;
+  width: 150px;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Pixelify Sans', sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -17,6 +34,7 @@ h1 {
   color: palevioletred;
   text-shadow: 2px 2px rgb(225, 29, 94);
   font-size: 50px;
+  margin-top: 5px;
 }
 
 button {
