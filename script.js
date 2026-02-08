@@ -7,10 +7,10 @@ const body = document.querySelector('body')
 
 const startGame = () => {
   console.log('game started')
+  countdown()
   startingSettings()
   decreaseStatus()
   createButtons()
-  countdown()
 }
 
 const startingSettings = () => {
@@ -25,7 +25,7 @@ const decreaseStatus = () => {
   let statusBars = document.querySelectorAll('.status-bar')
   statusBars.forEach((bar) => {
     let width = 150
-    let duration = 10000 // 120000 for 2 mins
+    let duration = 100000 // 120000 for 2 mins
     let interval = 10
     let decreaseAmount = width / (duration / interval)
 
@@ -97,11 +97,23 @@ const countdown = () => {
   let time = 120
   const timer = document.createElement('h1')
   timer.setAttribute('class', 'headers')
-  timer.textContent = 'timer'
   body.appendChild(timer)
   timer.style.position = 'absolute'
   timer.style.top = '40%'
   timer.style.left = '7%'
+
+  const clock = setInterval(() => {
+    if (time <= 0) {
+      clearInterval(clock)
+    }
+
+    const minutes = Math.floor(time / 60)
+    const seconds = time % 60
+
+    timer.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+
+    time--
+  }, 1000)
 }
 
 startButton.addEventListener('click', startGame)
