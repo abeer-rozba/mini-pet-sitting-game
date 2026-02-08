@@ -1,3 +1,78 @@
+html {
+  background: url('./images/background.png') no-repeat center center fixed;
+  background-color: rgba(255, 255, 255, 0.141);
+  background-blend-mode: lighten;
+  background-size: cover;
+  height: 100%;
+}
+
 body {
-  background-color: red;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Pixelify Sans', sans-serif;
+  color: palevioletred;
+  text-shadow: 2px 2px rgb(225, 29, 94);
+  font-size: 50px;
+}
+
+button {
+  background-color: palevioletred;
+  font-size: 20px;
+  font-family: 'Pixelify Sans', sans-serif;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 2px 2px rgb(225, 29, 94);
+}
+
+#start-game {
+  /* https://www.reddit.com/r/webdev/comments/1diix0e/centering_a_div_nowadays_what_are_the_best/ */
+  position: absolute;
+  top: 93%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.game-box {
+  background-color: rgba(255, 255, 255, 0.492);
+  width: 800px;
+  height: 500px;
+  margin: auto;
+  border: none;
+  border-radius: 18px;
+}
+
+.clickable:hover {
+  /* https://stackoverflow.com/questions/4564251/change-the-mouse-pointer-using-javascript */
+  cursor: pointer;
+}
+
+#corgi {
+  position: absolute;
+  top: 53%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+#dialogue {
+  background-color: rgba(239, 138, 172, 0.855);
+  color: white;
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 49%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 18px;
+  text-align: center;
+  line-height: 45px; /* https://stackoverflow.com/questions/9629312/align-text-to-left-and-vertically-center-in-div */
+  padding: 10px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 20px;
 }
