@@ -28,7 +28,7 @@ body {
   padding: 0;
 }
 
-h1 {
+.headers {
   text-align: center;
   font-family: 'Pixelify Sans', sans-serif;
   color: palevioletred;
