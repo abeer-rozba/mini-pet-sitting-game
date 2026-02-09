@@ -58,18 +58,27 @@ const sickPet = () => {
   treatButton1.setAttribute('class', 'clickable reactions')
   treatButton1.textContent = 'Home remedies are the solution'
   reactionsDiv.appendChild(treatButton1)
+  treatButton1.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
 
   treatButton2 = document.createElement('button')
   treatButton2.setAttribute('id', 'vet')
   treatButton2.setAttribute('class', 'clickable reactions')
   treatButton2.textContent = 'Take him to the vet'
   reactionsDiv.appendChild(treatButton2)
+  treatButton2.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
 
   treatButton3 = document.createElement('button')
   treatButton3.setAttribute('id', 'hope')
   treatButton3.setAttribute('class', 'clickable reactions')
   treatButton3.textContent = 'Do nothing and hope for the best'
   reactionsDiv.appendChild(treatButton3)
+  treatButton3.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
 }
 
 const ateChocolate = () => {
@@ -130,16 +139,13 @@ class Sitter {
     this.bankAccount = 300
   }
   forgive() {}
-  sue() {
-    console.log("I'll sue you")
-  }
+  sue() {}
   chase() {}
   whistle() {}
 }
 
 // main function
 const startGame = () => {
-  console.log('game started')
   startingSettings()
   decreaseStatus()
   createButtons()
