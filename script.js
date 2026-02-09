@@ -1,3 +1,4 @@
+// variables
 const startButton = document.querySelector('#start-game')
 const header = document.querySelector('#title')
 const statusContainer = document.querySelector('.status-container')
@@ -13,6 +14,34 @@ let feedButton,
   petButton,
   timer
 
+// classes and objects
+class Dog {
+  constructor() {
+    this.name = 'Connor'
+    this.health = 50
+    this.hunger = 50
+    this.happiness = 50
+    this.energy = 50
+    this.isSick = false
+    this.ranAway = false
+    this.poisoned = false
+    this.destructive = false
+  }
+  feed() {}
+  play() {}
+  sleep() {}
+  pet() {}
+  walk() {}
+  reward() {}
+  treat() {}
+  checkStatus() {}
+}
+
+/*The dog has a name (string), health, hunger, happiness, and energy properties (all are numbers out of 100).
+He also has isSick (boolean), ranAway (boolean), poisoned (boolean), and destructive (boolean).
+He has feed(), play(), sleep(), pet(), walk(), reward(), and treat(), checkstatus() functions. */
+
+// main function
 const startGame = () => {
   console.log('game started')
   startingSettings()
@@ -21,6 +50,7 @@ const startGame = () => {
   countdown()
 }
 
+// functions definitions
 const startingSettings = () => {
   header.style.marginBottom = '0px'
   header.style.visibility = 'hidden'
@@ -40,7 +70,7 @@ const decreaseStatus = () => {
   let statusBars = document.querySelectorAll('.status-bar')
   statusBars.forEach((bar) => {
     let width = 150
-    let duration = 80000 // 120000 for 2 mins
+    let duration = 10000 // make it 150000
     let interval = 10
     let decreaseAmount = width / (duration / interval)
 
@@ -109,7 +139,7 @@ const createButtons = () => {
 }
 
 const countdown = () => {
-  let time = 120
+  let time = 120 // make it 300 for 5 mins
 
   const clock = setInterval(() => {
     if (time <= 0) {
@@ -125,4 +155,5 @@ const countdown = () => {
   }, 1000)
 }
 
+// event listeners
 startButton.addEventListener('click', startGame)
