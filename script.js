@@ -123,6 +123,40 @@ const ateChocolate = () => {
 const escaped = () => {
   dialogue.textContent =
     'Oh no! Connor is nowhere to be found, he must have escaped while you were playing Minecraft! What do you do?'
+
+  reactionsDiv = document.createElement('div')
+  reactionsDiv.style.height = '200px'
+  reactionsDiv.style.display = 'flex'
+  reactionsDiv.style.flexDirection = 'column'
+  reactionsDiv.style.justifyContent = 'space-evenly'
+  dialogue.appendChild(reactionsDiv)
+
+  treatButton1 = document.createElement('button')
+  treatButton1.setAttribute('id', 'chase')
+  treatButton1.setAttribute('class', 'clickable reactions')
+  treatButton1.textContent = 'Chase Connor!'
+  reactionsDiv.appendChild(treatButton1)
+  treatButton1.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
+
+  treatButton2 = document.createElement('button')
+  treatButton2.setAttribute('id', 'posters')
+  treatButton2.setAttribute('class', 'clickable reactions')
+  treatButton2.textContent = 'Put up missing posters'
+  reactionsDiv.appendChild(treatButton2)
+  treatButton2.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
+
+  treatButton3 = document.createElement('button')
+  treatButton3.setAttribute('id', 'lure')
+  treatButton3.setAttribute('class', 'clickable reactions')
+  treatButton3.textContent = 'Lure him with a treat'
+  reactionsDiv.appendChild(treatButton3)
+  treatButton3.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
 }
 
 const ruinedCouch = () => {
@@ -296,7 +330,7 @@ const countdown = () => {
 const randomEvent = () => {
   // let index = Math.floor(Math.random() * events.length)
   // events[index]()
-  events[1]()
+  events[2]()
 }
 
 // event listeners
