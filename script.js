@@ -60,6 +60,7 @@ const sickPet = () => {
   reactionsDiv.appendChild(treatButton1)
   treatButton1.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 
   treatButton2 = document.createElement('button')
@@ -69,6 +70,7 @@ const sickPet = () => {
   reactionsDiv.appendChild(treatButton2)
   treatButton2.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 
   treatButton3 = document.createElement('button')
@@ -78,6 +80,7 @@ const sickPet = () => {
   reactionsDiv.appendChild(treatButton3)
   treatButton3.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 }
 
@@ -99,6 +102,7 @@ const ateChocolate = () => {
   reactionsDiv.appendChild(treatButton1)
   treatButton1.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 
   treatButton2 = document.createElement('button')
@@ -108,6 +112,7 @@ const ateChocolate = () => {
   reactionsDiv.appendChild(treatButton2)
   treatButton2.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 
   treatButton3 = document.createElement('button')
@@ -117,6 +122,7 @@ const ateChocolate = () => {
   reactionsDiv.appendChild(treatButton3)
   treatButton3.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 }
 
@@ -138,6 +144,7 @@ const escaped = () => {
   reactionsDiv.appendChild(treatButton1)
   treatButton1.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 
   treatButton2 = document.createElement('button')
@@ -147,6 +154,7 @@ const escaped = () => {
   reactionsDiv.appendChild(treatButton2)
   treatButton2.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 
   treatButton3 = document.createElement('button')
@@ -156,12 +164,50 @@ const escaped = () => {
   reactionsDiv.appendChild(treatButton3)
   treatButton3.addEventListener('click', () => {
     reactionsDiv.remove()
+    randomEvent()
   })
 }
 
 const ruinedCouch = () => {
   dialogue.textContent =
     'You walk into the living room and find your expensive couch torn apart... Connor destroyed it.. What do you do?'
+
+  reactionsDiv = document.createElement('div')
+  reactionsDiv.style.height = '200px'
+  reactionsDiv.style.display = 'flex'
+  reactionsDiv.style.flexDirection = 'column'
+  reactionsDiv.style.justifyContent = 'space-evenly'
+  dialogue.appendChild(reactionsDiv)
+
+  treatButton1 = document.createElement('button')
+  treatButton1.setAttribute('id', 'yell')
+  treatButton1.setAttribute('class', 'clickable reactions')
+  treatButton1.textContent = 'Yell at Connor: "Bad dog!"'
+  reactionsDiv.appendChild(treatButton1)
+  treatButton1.addEventListener('click', () => {
+    reactionsDiv.remove()
+    randomEvent()
+  })
+
+  treatButton2 = document.createElement('button')
+  treatButton2.setAttribute('id', 'give-treat')
+  treatButton2.setAttribute('class', 'clickable reactions')
+  treatButton2.textContent = 'A treat will distract him from the couch'
+  reactionsDiv.appendChild(treatButton2)
+  treatButton2.addEventListener('click', () => {
+    reactionsDiv.remove()
+    randomEvent()
+  })
+
+  treatButton3 = document.createElement('button')
+  treatButton3.setAttribute('id', 'take-walk')
+  treatButton3.setAttribute('class', 'clickable reactions')
+  treatButton3.textContent = 'Walk him to drain excess energy'
+  reactionsDiv.appendChild(treatButton3)
+  treatButton3.addEventListener('click', () => {
+    reactionsDiv.remove()
+    randomEvent()
+  })
 }
 
 const events = [sickPet, ateChocolate, escaped, ruinedCouch] // https://stackoverflow.com/questions/3592468/can-i-store-javascript-functions-in-arrays, https://www.geeksforgeeks.org/javascript/array-of-functions-in-javascript/
@@ -328,9 +374,8 @@ const countdown = () => {
 }
 
 const randomEvent = () => {
-  // let index = Math.floor(Math.random() * events.length)
-  // events[index]()
-  events[2]()
+  let index = Math.floor(Math.random() * events.length)
+  events[index]()
 }
 
 // event listeners
