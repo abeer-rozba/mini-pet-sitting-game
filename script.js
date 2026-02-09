@@ -84,6 +84,40 @@ const sickPet = () => {
 const ateChocolate = () => {
   let index = Math.floor(Math.random() * chocolate.length)
   dialogue.textContent = chocolate[index]
+
+  reactionsDiv = document.createElement('div')
+  reactionsDiv.style.height = '200px'
+  reactionsDiv.style.display = 'flex'
+  reactionsDiv.style.flexDirection = 'column'
+  reactionsDiv.style.justifyContent = 'space-evenly'
+  dialogue.appendChild(reactionsDiv)
+
+  treatButton1 = document.createElement('button')
+  treatButton1.setAttribute('id', 'poison-control')
+  treatButton1.setAttribute('class', 'clickable reactions')
+  treatButton1.textContent = 'Call animal poison control center'
+  reactionsDiv.appendChild(treatButton1)
+  treatButton1.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
+
+  treatButton2 = document.createElement('button')
+  treatButton2.setAttribute('id', 'hydrogen-peroxide')
+  treatButton2.setAttribute('class', 'clickable reactions')
+  treatButton2.textContent = 'Induce vomiting with hydrogen peroxide'
+  reactionsDiv.appendChild(treatButton2)
+  treatButton2.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
+
+  treatButton3 = document.createElement('button')
+  treatButton3.setAttribute('id', 'check-chocolate')
+  treatButton3.setAttribute('class', 'clickable reactions')
+  treatButton3.textContent = "It's just chocolate, he'll be fine"
+  reactionsDiv.appendChild(treatButton3)
+  treatButton3.addEventListener('click', () => {
+    reactionsDiv.remove()
+  })
 }
 
 const escaped = () => {
@@ -262,7 +296,7 @@ const countdown = () => {
 const randomEvent = () => {
   // let index = Math.floor(Math.random() * events.length)
   // events[index]()
-  events[0]()
+  events[1]()
 }
 
 // event listeners
