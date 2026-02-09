@@ -7,6 +7,7 @@ const buttons = document.querySelector('.buttons')
 const body = document.querySelector('body')
 const dialogue = document.querySelector('#dialogue')
 
+// regular buttons + timer
 let feedButton,
   walkButton,
   playButton,
@@ -14,6 +15,9 @@ let feedButton,
   rewardButton,
   petButton,
   timer
+
+// random events buttons
+let treatButton1, treatButton2, treatButton3, reactionsDiv
 
 const healthyFood = [
   'chicken',
@@ -41,6 +45,31 @@ const chocolate = [
 const sickPet = () => {
   dialogue.textContent =
     'You noticed Connor is lethargic, refuses to eat, and is breathing with difficulty. He appears to be sick. What do you do? '
+
+  reactionsDiv = document.createElement('div')
+  reactionsDiv.style.height = '200px'
+  reactionsDiv.style.display = 'flex'
+  reactionsDiv.style.flexDirection = 'column'
+  reactionsDiv.style.justifyContent = 'space-evenly'
+  dialogue.appendChild(reactionsDiv)
+
+  treatButton1 = document.createElement('button')
+  treatButton1.setAttribute('id', 'home-remedy')
+  treatButton1.setAttribute('class', 'clickable reactions')
+  treatButton1.textContent = 'Home remedies are the solution'
+  reactionsDiv.appendChild(treatButton1)
+
+  treatButton2 = document.createElement('button')
+  treatButton2.setAttribute('id', 'vet')
+  treatButton2.setAttribute('class', 'clickable reactions')
+  treatButton2.textContent = 'Take him to the vet'
+  reactionsDiv.appendChild(treatButton2)
+
+  treatButton3 = document.createElement('button')
+  treatButton3.setAttribute('id', 'hope')
+  treatButton3.setAttribute('class', 'clickable reactions')
+  treatButton3.textContent = 'Do nothing and hope for the best'
+  reactionsDiv.appendChild(treatButton3)
 }
 
 const ateChocolate = () => {
@@ -225,8 +254,9 @@ const countdown = () => {
 }
 
 const randomEvent = () => {
-  let index = Math.floor(Math.random() * events.length)
-  events[index]()
+  // let index = Math.floor(Math.random() * events.length)
+  // events[index]()
+  events[0]()
 }
 
 // event listeners

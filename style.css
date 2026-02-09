@@ -48,6 +48,11 @@ button {
   box-shadow: 2px 2px rgb(225, 29, 94);
 }
 
+.reactions {
+  background-color: rgb(214, 10, 78);
+  box-shadow: 2px 2px rgb(158, 5, 56);
+}
+
 #start-game {
   /* https://www.reddit.com/r/webdev/comments/1diix0e/centering_a_div_nowadays_what_are_the_best/ */
   position: absolute;
@@ -101,8 +106,4 @@ button {
   padding: 10px;
   font-family: 'Pixelify Sans', sans-serif;
   font-size: 20px;
-}
-
-.icons {
-  display: inline-flexbox;
 }
