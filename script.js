@@ -58,14 +58,21 @@ class Dog {
   feed() {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
+      this.health -= 10
+      console.log(this.health)
       let index = Math.floor(Math.random() * healthyFood.length)
       dialogue.textContent = `You fed Connor ${healthyFood[index]}. The food was delicious and healthy.`
     } else if (index == 1) {
+      this.health -= 10
+      console.log(this.health)
       let index = Math.floor(Math.random() * unhealthyFood.length)
       if (index == 1) {
         dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The seeds irritated his stomach.`
       } else
         dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The food irritated his stomach.`
+    }
+    if (this.health <= 0) {
+      endGame()
     }
   }
   play() {}
@@ -477,6 +484,11 @@ const outcomes = (reaction) => {
     dialogue.textContent =
       "You take Connor on a walk that stimulates his senses and drains his energy out. When you're back, Connor sleeps."
   }
+}
+
+const endGame = () => {
+  console.log('game ended')
+  buttons.remove()
 }
 
 // event listeners
