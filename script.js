@@ -5,6 +5,7 @@ const statusContainer = document.querySelector('.status-container')
 const statusBars = document.querySelectorAll('.status-bar')
 const buttons = document.querySelector('.buttons')
 const body = document.querySelector('body')
+const dialogue = document.querySelector('#dialogue')
 
 let feedButton,
   walkButton,
@@ -13,6 +14,51 @@ let feedButton,
   rewardButton,
   petButton,
   timer
+
+const healthyFood = [
+  'chicken',
+  'bread',
+  'broccoli',
+  'carrot',
+  'egg',
+  'peanut butter'
+]
+
+const unhealthyFood = [
+  'onion',
+  'whole apple',
+  'garlic',
+  'grapes',
+  'milk',
+  'coffee'
+]
+
+const chocolate = [
+  "Connor just ate 6 ounces of Peanut M&Ms. He seems a bit restless, you're worried that he's poisoned. What do you do?",
+  "Connor just ate one Hershey's milk chocolate bar. He seems fine but you're still worried he's poisoned. What do you do?"
+]
+
+const sickPet = () => {
+  dialogue.textContent =
+    'You noticed Connor is lethargic, refuses to eat, and is breathing with difficulty. He appears to be sick. What do you do? '
+}
+
+const ateChocolate = () => {
+  let index = Math.floor(Math.random() * chocolate.length)
+  dialogue.textContent = chocolate[index]
+}
+
+const escaped = () => {
+  dialogue.textContent =
+    'Oh no! Connor is nowhere to be found, he must have escaped while you were playing Minecraft! What do you do?'
+}
+
+const ruinedCouch = () => {
+  dialogue.textContent =
+    'You walk into the living room and find your expensive couch torn apart... Connor destroyed it.. What do you do?'
+}
+
+const events = [sickPet, ateChocolate, escaped, ruinedCouch] // https://stackoverflow.com/questions/3592468/can-i-store-javascript-functions-in-arrays, https://www.geeksforgeeks.org/javascript/array-of-functions-in-javascript/
 
 // classes and objects
 class Dog {
@@ -55,7 +101,9 @@ class Sitter {
     this.bankAccount = 300
   }
   forgive() {}
-  sue() {}
+  sue() {
+    console.log("I'll sue you")
+  }
   chase() {}
   whistle() {}
 }
@@ -67,6 +115,7 @@ const startGame = () => {
   decreaseStatus()
   createButtons()
   countdown()
+  events[3]()
 }
 
 // functions definitions
