@@ -145,7 +145,7 @@ const escaped = () => {
   reactionsDiv.appendChild(treatButton1)
   treatButton1.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton1)
   })
 
   treatButton2 = document.createElement('button')
@@ -155,7 +155,7 @@ const escaped = () => {
   reactionsDiv.appendChild(treatButton2)
   treatButton2.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton2)
   })
 
   treatButton3 = document.createElement('button')
@@ -165,7 +165,7 @@ const escaped = () => {
   reactionsDiv.appendChild(treatButton3)
   treatButton3.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton3)
   })
 }
 
@@ -377,7 +377,7 @@ const countdown = () => {
 const randomEvent = () => {
   // let index = Math.floor(Math.random() * events.length)
   // events[index]()
-  events[1]()
+  events[2]()
 }
 
 const outcomes = (reaction) => {
@@ -390,7 +390,9 @@ const outcomes = (reaction) => {
   } else if (reaction.id === 'hope') {
     dialogue.textContent =
       "Connor's condition is getting worse and worse. How heartless can you be?"
-  } else if (reaction.id === 'poison-control') {
+  }
+
+  if (reaction.id === 'poison-control') {
     if (chocolateType == 0) {
       dialogue.textContent =
         'You called the ASPCA and they handled the incident well. Good thinking. '
@@ -420,6 +422,29 @@ const outcomes = (reaction) => {
     } else if (chocolateType == 1) {
       dialogue.textContent =
         "The Hershey's bar was small, Connor is doing absolutely fine. You are lucky that nothing happened. "
+    }
+  }
+
+  if (reaction.id === 'chase') {
+    let index = Math.floor(Math.random() * 2)
+    if (index == 0) {
+      dialogue.textContent = `You chased Connor until you physically collapsed. He kept running faster and faster, and you couldn't catch him.`
+    } else if (index == 1) {
+      dialogue.textContent = `You chased Connor until you eventually caught him. Connor licks your face, he just wanted to play.`
+    }
+  } else if (reaction.id === 'posters') {
+    let index = Math.floor(Math.random() * 2)
+    if (index == 0) {
+      dialogue.textContent = `You wasted your time putting up posters instead of looking for Connor. His owner is back now and he is mad.`
+    } else if (index == 1) {
+      dialogue.textContent = `30 minutes after you put up the posters, a nice lady approaches, holding Connor in her arms. Phew, you got lucky!`
+    }
+  } else if (reaction.id === 'lure') {
+    let index = Math.floor(Math.random() * 2)
+    if (index == 0) {
+      dialogue.textContent = `You tried to lure Connor with a treat but he didn't fall for it. Seems like he preferred finding his own treat in the street`
+    } else if (index == 1) {
+      dialogue.textContent = `You lured Connor with a treat. He quickly ran back towards you and jumped around begging for biscuits.`
     }
   }
 }
