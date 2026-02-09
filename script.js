@@ -23,14 +23,14 @@ const healthyFood = [
   'chicken',
   'bread',
   'broccoli',
-  'carrot',
-  'egg',
+  'carrots',
+  'eggs',
   'peanut butter'
 ]
 
 const unhealthyFood = [
-  'onion',
-  'whole apple',
+  'onions',
+  'one whole apple',
   'garlic',
   'grapes',
   'milk',
@@ -41,6 +41,66 @@ const chocolate = [
   "Connor just ate 6 ounces of Peanut M&Ms. He seems a bit restless, you're worried that he's poisoned. What do you do?",
   "Connor just ate one Hershey's milk chocolate bar. He seems fine but you're still worried he's poisoned. What do you do?"
 ]
+
+// classes and objects
+class Dog {
+  constructor() {
+    this.name = 'Connor'
+    this.health = 50
+    this.hunger = 50
+    this.happiness = 50
+    this.energy = 50
+    this.isSick = false
+    this.ranAway = false
+    this.poisoned = false
+    this.destructive = false
+  }
+  feed() {
+    let index = Math.floor(Math.random() * 2)
+    if (index == 0) {
+      let index = Math.floor(Math.random() * healthyFood.length)
+      dialogue.textContent = `You fed Connor ${healthyFood[index]}. The food was delicious and healthy.`
+    } else if (index == 1) {
+      let index = Math.floor(Math.random() * unhealthyFood.length)
+      if (index == 1) {
+        dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The seeds irritated his stomach.`
+      } else
+        dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The food irritated his stomach.`
+    }
+  }
+  play() {}
+  sleep() {}
+  pet() {}
+  walk() {}
+  reward() {}
+  treat() {}
+  checkStatus() {}
+}
+
+class Owner {
+  constructor() {
+    this.payable = 100
+    this.tipAmount = 0
+  }
+  pickUp() {
+    console.log('works')
+  }
+  slap() {}
+  tip() {}
+  sue() {}
+}
+
+class Sitter {
+  constructor() {
+    this.bankAccount = 300
+  }
+  forgive() {}
+  sue() {}
+  chase() {}
+  whistle() {}
+}
+
+const dog = new Dog()
 
 const sickPet = () => {
   dialogue.textContent =
@@ -213,59 +273,15 @@ const ruinedCouch = () => {
 
 const events = [sickPet, ateChocolate, escaped, ruinedCouch] // https://stackoverflow.com/questions/3592468/can-i-store-javascript-functions-in-arrays, https://www.geeksforgeeks.org/javascript/array-of-functions-in-javascript/
 
-// classes and objects
-class Dog {
-  constructor() {
-    this.name = 'Connor'
-    this.health = 50
-    this.hunger = 50
-    this.happiness = 50
-    this.energy = 50
-    this.isSick = false
-    this.ranAway = false
-    this.poisoned = false
-    this.destructive = false
-  }
-  feed() {}
-  play() {}
-  sleep() {}
-  pet() {}
-  walk() {}
-  reward() {}
-  treat() {}
-  checkStatus() {}
-}
-
-class Owner {
-  constructor() {
-    this.payable = 100
-    this.tipAmount = 0
-  }
-  pickUp() {
-    console.log('works')
-  }
-  slap() {}
-  tip() {}
-  sue() {}
-}
-
-class Sitter {
-  constructor() {
-    this.bankAccount = 300
-  }
-  forgive() {}
-  sue() {}
-  chase() {}
-  whistle() {}
-}
-
 // main function
 const startGame = () => {
   startingSettings()
   decreaseStatus()
   createButtons()
   countdown()
-  randomEvent()
+  setInterval(function () {
+    randomEvent()
+  }, 60 * 1000)
 }
 
 // functions definitions
@@ -288,7 +304,7 @@ const decreaseStatus = () => {
   let statusBars = document.querySelectorAll('.status-bar')
   statusBars.forEach((bar) => {
     let width = 150
-    let duration = 10000 // make it 150000
+    let duration = 150000 // make it 150000
     let interval = 10
     let decreaseAmount = width / (duration / interval)
 
@@ -325,6 +341,10 @@ const createButtons = () => {
   feedButton.textContent = 'Feed'
   buttons.appendChild(feedButton)
 
+  feedButton.addEventListener('click', () => {
+    dog.feed()
+  })
+
   walkButton = document.createElement('button')
   walkButton.setAttribute('id', 'walk')
   walkButton.setAttribute('class', 'clickable')
@@ -358,7 +378,7 @@ const createButtons = () => {
 
 const countdown = () => {
   // https://community.testmuai.com/t/how-can-i-create-a-simple-javascript-countdown-timer/31822/2
-  let time = 120 // make it 300 for 5 mins
+  let time = 300
 
   const clock = setInterval(() => {
     if (time <= 0) {
@@ -375,9 +395,8 @@ const countdown = () => {
 }
 
 const randomEvent = () => {
-  // let index = Math.floor(Math.random() * events.length)
-  // events[index]()
-  events[3]()
+  let index = Math.floor(Math.random() * events.length)
+  events[index]()
 }
 
 const outcomes = (reaction) => {
