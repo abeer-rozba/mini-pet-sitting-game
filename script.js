@@ -37,9 +37,18 @@ class Dog {
   checkStatus() {}
 }
 
-/*The dog has a name (string), health, hunger, happiness, and energy properties (all are numbers out of 100).
-He also has isSick (boolean), ranAway (boolean), poisoned (boolean), and destructive (boolean).
-He has feed(), play(), sleep(), pet(), walk(), reward(), and treat(), checkstatus() functions. */
+class Owner {
+  constructor() {
+    this.payable = 100
+    this.tipAmount = 0
+  }
+  pickUp() {
+    console.log('works')
+  }
+  slap() {}
+  tip() {}
+  sue() {}
+}
 
 // main function
 const startGame = () => {
@@ -139,6 +148,7 @@ const createButtons = () => {
 }
 
 const countdown = () => {
+  // https://community.testmuai.com/t/how-can-i-create-a-simple-javascript-countdown-timer/31822/2
   let time = 120 // make it 300 for 5 mins
 
   const clock = setInterval(() => {
