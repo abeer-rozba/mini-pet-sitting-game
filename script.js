@@ -187,7 +187,7 @@ const ruinedCouch = () => {
   reactionsDiv.appendChild(treatButton1)
   treatButton1.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton1)
   })
 
   treatButton2 = document.createElement('button')
@@ -197,7 +197,7 @@ const ruinedCouch = () => {
   reactionsDiv.appendChild(treatButton2)
   treatButton2.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton2)
   })
 
   treatButton3 = document.createElement('button')
@@ -207,7 +207,7 @@ const ruinedCouch = () => {
   reactionsDiv.appendChild(treatButton3)
   treatButton3.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton3)
   })
 }
 
@@ -377,7 +377,7 @@ const countdown = () => {
 const randomEvent = () => {
   // let index = Math.floor(Math.random() * events.length)
   // events[index]()
-  events[2]()
+  events[3]()
 }
 
 const outcomes = (reaction) => {
@@ -446,6 +446,17 @@ const outcomes = (reaction) => {
     } else if (index == 1) {
       dialogue.textContent = `You lured Connor with a treat. He quickly ran back towards you and jumped around begging for biscuits.`
     }
+  }
+
+  if (reaction.id === 'yell') {
+    dialogue.textContent =
+      'You yell at Connor. He feels threatened and bites you. You deserve that, never yell at a doggie.'
+  } else if (reaction.id === 'give-treat') {
+    dialogue.textContent =
+      "You try distracting Connor with a treat, but he thinks you're rewarding his behavior. He keeps on tearing the couch."
+  } else if (reaction.id === 'take-walk') {
+    dialogue.textContent =
+      "You take Connor on a walk that stimulates his senses and drains his energy out. When you're back, Connor sleeps."
   }
 }
 
