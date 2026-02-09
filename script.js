@@ -115,7 +115,7 @@ const startGame = () => {
   decreaseStatus()
   createButtons()
   countdown()
-  events[3]()
+  randomEvent()
 }
 
 // functions definitions
@@ -222,6 +222,11 @@ const countdown = () => {
 
     time--
   }, 1000)
+}
+
+const randomEvent = () => {
+  let index = Math.floor(Math.random() * events.length)
+  events[index]()
 }
 
 // event listeners
