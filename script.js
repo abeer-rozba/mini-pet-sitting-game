@@ -50,6 +50,16 @@ class Owner {
   sue() {}
 }
 
+class Sitter {
+  constructor() {
+    this.bankAccount = 300
+  }
+  forgive() {}
+  sue() {}
+  chase() {}
+  whistle() {}
+}
+
 // main function
 const startGame = () => {
   console.log('game started')
