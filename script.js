@@ -60,7 +60,7 @@ const sickPet = () => {
   reactionsDiv.appendChild(treatButton1)
   treatButton1.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton1)
   })
 
   treatButton2 = document.createElement('button')
@@ -70,7 +70,7 @@ const sickPet = () => {
   reactionsDiv.appendChild(treatButton2)
   treatButton2.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton2)
   })
 
   treatButton3 = document.createElement('button')
@@ -80,7 +80,7 @@ const sickPet = () => {
   reactionsDiv.appendChild(treatButton3)
   treatButton3.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton3)
   })
 }
 
@@ -102,7 +102,7 @@ const ateChocolate = () => {
   reactionsDiv.appendChild(treatButton1)
   treatButton1.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton1)
   })
 
   treatButton2 = document.createElement('button')
@@ -112,7 +112,7 @@ const ateChocolate = () => {
   reactionsDiv.appendChild(treatButton2)
   treatButton2.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton2)
   })
 
   treatButton3 = document.createElement('button')
@@ -122,7 +122,7 @@ const ateChocolate = () => {
   reactionsDiv.appendChild(treatButton3)
   treatButton3.addEventListener('click', () => {
     reactionsDiv.remove()
-    randomEvent()
+    outcomes(treatButton3)
   })
 }
 
@@ -374,8 +374,22 @@ const countdown = () => {
 }
 
 const randomEvent = () => {
-  let index = Math.floor(Math.random() * events.length)
-  events[index]()
+  // let index = Math.floor(Math.random() * events.length)
+  // events[index]()
+  events[0]()
+}
+
+const outcomes = (reaction) => {
+  if (reaction.id === 'home-remedy') {
+    dialogue.textContent =
+      "You gave Connor a boiled chicken with plain rice. He barely touched it, he's still sick."
+  } else if (reaction.id === 'vet') {
+    dialogue.textContent =
+      "You spent $230 on Connor's vet visit. He received proper treatment and he feels better now."
+  } else if (reaction.id === 'hope') {
+    dialogue.textContent =
+      "Connor's condition is getting worse and worse. How heartless can you be?"
+  }
 }
 
 // event listeners
