@@ -17,7 +17,7 @@ let feedButton,
   timer
 
 // random events buttons
-let treatButton1, treatButton2, treatButton3, reactionsDiv
+let treatButton1, treatButton2, treatButton3, reactionsDiv, chocolateType
 
 const healthyFood = [
   'chicken',
@@ -87,6 +87,7 @@ const sickPet = () => {
 const ateChocolate = () => {
   let index = Math.floor(Math.random() * chocolate.length)
   dialogue.textContent = chocolate[index]
+  chocolateType = index
 
   reactionsDiv = document.createElement('div')
   reactionsDiv.style.height = '200px'
@@ -116,7 +117,7 @@ const ateChocolate = () => {
   })
 
   treatButton3 = document.createElement('button')
-  treatButton3.setAttribute('id', 'check-chocolate')
+  treatButton3.setAttribute('id', 'do-nothing')
   treatButton3.setAttribute('class', 'clickable reactions')
   treatButton3.textContent = "It's just chocolate, he'll be fine"
   reactionsDiv.appendChild(treatButton3)
@@ -376,7 +377,7 @@ const countdown = () => {
 const randomEvent = () => {
   // let index = Math.floor(Math.random() * events.length)
   // events[index]()
-  events[0]()
+  events[1]()
 }
 
 const outcomes = (reaction) => {
@@ -389,6 +390,37 @@ const outcomes = (reaction) => {
   } else if (reaction.id === 'hope') {
     dialogue.textContent =
       "Connor's condition is getting worse and worse. How heartless can you be?"
+  } else if (reaction.id === 'poison-control') {
+    if (chocolateType == 0) {
+      dialogue.textContent =
+        'You called the ASPCA and they handled the incident well. Good thinking. '
+    } else if (chocolateType == 1) {
+      dialogue.textContent =
+        "You called the ASPCA and they said it's a small amount of milk chocolate, Connor will be fine."
+    }
+  } else if (reaction.id === 'hydrogen-peroxide') {
+    let index = Math.floor(Math.random() * 5) + 1
+    if (chocolateType == 0) {
+      if (index <= 3) {
+        dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting. While you should have consulted a vet first, this worked anyway. Connor is now better.`
+      } else if (index > 3) {
+        dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting, that's too much. You caused severe chemical burns to Connor's mouth.`
+      }
+    } else if (chocolateType == 1) {
+      if (index <= 3) {
+        dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting. Connor didn't need it since he only ate a small amount of milk chocolate. Fortunately, this didn't harm him.`
+      } else if (index > 3) {
+        dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting, that's too much. Connor didn't need it since he only ate a small amount of white chocolate, and on top of that you caused his mouth severe chemical burns.`
+      }
+    }
+  } else if (reaction.id === 'do-nothing') {
+    if (chocolateType == 0) {
+      dialogue.textContent =
+        'The type and amount of Chocolate that Connor ate were of severe toxicity, he suffered a seizure.'
+    } else if (chocolateType == 1) {
+      dialogue.textContent =
+        "The Hershey's bar was small, Connor is doing absolutely fine. You are lucky that nothing happened. "
+    }
   }
 }
 
