@@ -5,12 +5,20 @@ const statusBars = document.querySelectorAll('.status-bar')
 const buttons = document.querySelector('.buttons')
 const body = document.querySelector('body')
 
+let feedButton,
+  walkButton,
+  playButton,
+  sleepButton,
+  rewardButton,
+  petButton,
+  timer
+
 const startGame = () => {
   console.log('game started')
-  countdown()
   startingSettings()
   decreaseStatus()
   createButtons()
+  countdown()
 }
 
 const startingSettings = () => {
@@ -19,13 +27,20 @@ const startingSettings = () => {
   startButton.style.visibility = 'hidden'
   statusContainer.style.marginTop = '34px'
   statusContainer.style.visibility = 'visible'
+  timer = document.createElement('h1')
+  timer.setAttribute('class', 'headers')
+  body.appendChild(timer)
+  timer.style.position = 'absolute'
+  timer.style.top = '40%'
+  timer.style.left = '3%'
+  timer.textContent = "Let's Play!"
 }
 
 const decreaseStatus = () => {
   let statusBars = document.querySelectorAll('.status-bar')
   statusBars.forEach((bar) => {
     let width = 150
-    let duration = 100000 // 120000 for 2 mins
+    let duration = 80000 // 120000 for 2 mins
     let interval = 10
     let decreaseAmount = width / (duration / interval)
 
@@ -56,37 +71,37 @@ const decreaseStatus = () => {
 }
 
 const createButtons = () => {
-  const feedButton = document.createElement('button')
+  feedButton = document.createElement('button')
   feedButton.setAttribute('id', 'feed')
   feedButton.setAttribute('class', 'clickable')
   feedButton.textContent = 'Feed'
   buttons.appendChild(feedButton)
 
-  const walkButton = document.createElement('button')
+  walkButton = document.createElement('button')
   walkButton.setAttribute('id', 'walk')
   walkButton.setAttribute('class', 'clickable')
   walkButton.textContent = 'Walk'
   buttons.appendChild(walkButton)
 
-  const playButton = document.createElement('button')
+  playButton = document.createElement('button')
   playButton.setAttribute('id', 'play')
   playButton.setAttribute('class', 'clickable')
   playButton.textContent = 'Play'
   buttons.appendChild(playButton)
 
-  const sleepButton = document.createElement('button')
+  sleepButton = document.createElement('button')
   sleepButton.setAttribute('id', 'sleep')
   sleepButton.setAttribute('class', 'clickable')
   sleepButton.textContent = 'Sleep'
   buttons.appendChild(sleepButton)
 
-  const rewardButton = document.createElement('button')
+  rewardButton = document.createElement('button')
   rewardButton.setAttribute('id', 'reward')
   rewardButton.setAttribute('class', 'clickable')
   rewardButton.textContent = 'Reward'
   buttons.appendChild(rewardButton)
 
-  const petButton = document.createElement('button')
+  petButton = document.createElement('button')
   petButton.setAttribute('id', 'pet')
   petButton.setAttribute('class', 'clickable')
   petButton.textContent = 'Pet'
@@ -95,12 +110,6 @@ const createButtons = () => {
 
 const countdown = () => {
   let time = 120
-  const timer = document.createElement('h1')
-  timer.setAttribute('class', 'headers')
-  body.appendChild(timer)
-  timer.style.position = 'absolute'
-  timer.style.top = '40%'
-  timer.style.left = '7%'
 
   const clock = setInterval(() => {
     if (time <= 0) {
@@ -109,7 +118,7 @@ const countdown = () => {
 
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
-
+    timer.style.left = '7%'
     timer.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
 
     time--
