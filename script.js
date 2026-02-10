@@ -55,6 +55,9 @@ class Dog {
     this.happiness = 50
     this.energy = 50
     this.isHungry = false
+    this.isSick = false
+    this.isTired = false
+    this.isUnhappy = false
   }
   feed() {
     if (this.isHungry == true) {
@@ -116,10 +119,16 @@ class Dog {
     )
   }
   sleep() {
+    if (this.isSick == true) {
+      alertMessage.remove()
+      buttons.style.visibility = 'visible'
+    }
     let index = Math.floor(Math.random() * 30)
     if (index <= 15) {
+      this.health += 5
       dialogue.textContent = `Connor napped for ${index} minutes. He still feels tired and wants to sleep some more.`
     } else if (index > 15) {
+      this.health += 10
       dialogue.textContent = `Connor slept for ${index} minutes. He feels refreshed now. That was such a power nap!`
     }
     console.log(
@@ -135,8 +144,10 @@ class Dog {
   pet() {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
+      this.health -= 10
       dialogue.textContent = `You gave Connor some belly rubs, he wiggles around happily, asking for more.`
     } else if (index == 1) {
+      this.health -= 10
       dialogue.textContent = `You pat on Connor's head, he wags his tail happily, asking for more.`
     }
     console.log(
@@ -145,6 +156,28 @@ class Dog {
   }
   treat() {}
   checkStatus() {
+    if (this.health <= 0) {
+      this.isSick = true
+      alertMessage = document.createElement('div')
+      alertMessage.style.height = '200px'
+      alertMessage.style.display = 'flex'
+      alertMessage.style.flexDirection = 'column'
+      alertMessage.style.justifyContent = 'center'
+      dialogue.appendChild(alertMessage)
+
+      messageContent = document.createElement('p')
+      messageContent.setAttribute('class', 'reactions')
+      messageContent.style.backgroundColor = 'rgba(216, 115, 14, 0.84)'
+      messageContent.style.border = 'none'
+      messageContent.style.borderRadius = '18px'
+      messageContent.textContent = `Connor is feeling under the weather, help him feel better.`
+      alertMessage.appendChild(messageContent)
+      buttons.style.visibility = 'hidden'
+      sleepButton.style.visibility = 'visible'
+      walkButton.style.visibility = 'visible'
+      feedButton.style.visibility = 'visible'
+    }
+
     if (this.hunger >= 100) {
       this.isHungry = true
       alertMessage = document.createElement('div')
@@ -156,6 +189,7 @@ class Dog {
 
       messageContent = document.createElement('p')
       messageContent.setAttribute('class', 'reactions')
+      messageContent.style.backgroundColor = 'rgba(216, 115, 14, 0.84)'
       messageContent.style.border = 'none'
       messageContent.style.borderRadius = '18px'
       messageContent.textContent = 'Connor feels very hungry. Feed him please.'
@@ -484,6 +518,7 @@ const createButtons = () => {
 
   sleepButton.addEventListener('click', () => {
     dog.sleep()
+    dog.checkStatus()
   })
 
   rewardButton = document.createElement('button')
@@ -504,6 +539,7 @@ const createButtons = () => {
 
   petButton.addEventListener('click', () => {
     dog.pet()
+    dog.checkStatus()
   })
 }
 
