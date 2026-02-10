@@ -14,7 +14,9 @@ let feedButton,
   sleepButton,
   rewardButton,
   petButton,
-  timer
+  timer,
+  alertMessage,
+  messageContent
 
 // random events buttons
 let treatButton1, treatButton2, treatButton3, reactionsDiv, chocolateType
@@ -52,47 +54,65 @@ class Dog {
     this.hunger = 50
     this.happiness = 50
     this.energy = 50
-    this.isSick = false
-    this.ranAway = false
-    this.poisoned = false
-    this.destructive = false
+    this.isHungry = false
   }
   feed() {
+    if (this.isHungry == true) {
+      alertMessage.remove()
+    }
     let index = Math.floor(Math.random() * 2)
-    if (this.hunger == 100) {
+    if (this.hunger == 0) {
       dialogue.textContent = `Connor feels full, he refuses to eat.`
-    } else if (this.hunger < 100) {
+    } else if (this.hunger > 0 && this.hunger !== 100) {
       if (index == 0) {
-        this.health += 10
-        this.hunger += 10
+        if (this.health !== 100) this.health += 10
+        this.hunger -= 10
+        if (this.happiness !== 100) this.happiness += 5
+        this.energy += 5
         let index = Math.floor(Math.random() * healthyFood.length)
         dialogue.textContent = `You fed Connor ${healthyFood[index]}. The food was delicious and healthy.`
       } else if (index == 1) {
-        this.health -= 10
-        this.hunger += 10
+        if (this.health !== 0) this.health -= 10
+        this.hunger -= 10
+        if (this.happiness !== 0) this.happiness -= 5
+        this.energy += 5
         let index = Math.floor(Math.random() * unhealthyFood.length)
         if (index == 1) {
           dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The seeds irritated his stomach.`
         } else
           dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The food irritated his stomach.`
       }
+      this.isHungry = false
     }
-    // if (this.health <= 0) {
-    //   endGame()
-    // }
-    console.log(`Health: ${this.health} Hunger: ${this.hunger}`)
+    console.log(
+      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
+    )
   }
   walk() {
     let index = Math.floor(Math.random() * 45)
     if (index <= 20) {
+      this.health += 5
+      if (this.hunger !== 100) this.hunger += 10
+      this.happiness += 10
+      this.energy -= 5
       dialogue.textContent = `You walked Connor for ${index} minutes. He still feels energetic and ready for more activities`
     } else if (index > 20) {
+      this.health += 5
+      if (this.hunger !== 100) this.hunger += 20
+      this.happiness += 10
+      this.energy -= 10
       dialogue.textContent = `You walked Connor for ${index} minutes. He feels tired now. Connor takes a little nap.`
     }
+    console.log(
+      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
+    )
   }
   play() {
     let index = Math.floor(Math.random() * dogGames.length)
     dialogue.textContent = `You played ${dogGames[index]} with Connor. He enjoyed his time but the game left him a bit tired.`
+    console.log(
+      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
+    )
   }
   sleep() {
     let index = Math.floor(Math.random() * 30)
@@ -101,9 +121,15 @@ class Dog {
     } else if (index > 15) {
       dialogue.textContent = `Connor slept for ${index} minutes. He feels refreshed now. That was such a power nap!`
     }
+    console.log(
+      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
+    )
   }
   reward() {
     dialogue.textContent = `You gave Connor a treat, he jumps around happily, asking for more.`
+    console.log(
+      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
+    )
   }
   pet() {
     let index = Math.floor(Math.random() * 2)
@@ -112,9 +138,51 @@ class Dog {
     } else if (index == 1) {
       dialogue.textContent = `You pat on Connor's head, he wags his tail happily, asking for more.`
     }
+    console.log(
+      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
+    )
   }
   treat() {}
-  checkStatus() {}
+  checkStatus() {
+    if (this.hunger >= 100) {
+      this.isHungry = true
+      alertMessage = document.createElement('div')
+      alertMessage.style.height = '200px'
+      alertMessage.style.display = 'flex'
+      alertMessage.style.flexDirection = 'column'
+      alertMessage.style.justifyContent = 'center'
+      dialogue.appendChild(alertMessage)
+
+      messageContent = document.createElement('p')
+      messageContent.setAttribute('class', 'reactions')
+      messageContent.style.border = 'none'
+      messageContent.style.borderRadius = '18px'
+      messageContent.textContent = 'Connor feels very hungry. Feed him please.'
+      alertMessage.appendChild(messageContent)
+      buttons.style.visibility = 'hidden'
+      feedButton.style.visibility = 'visible'
+    }
+
+    if (this.energy == 100) {
+      alertMessage = document.createElement('div')
+      alertMessage.style.height = '200px'
+      alertMessage.style.display = 'flex'
+      alertMessage.style.flexDirection = 'column'
+      alertMessage.style.justifyContent = 'center'
+      dialogue.appendChild(alertMessage)
+
+      messageContent = document.createElement('p')
+      messageContent.setAttribute('class', 'reactions')
+      messageContent.style.border = 'none'
+      messageContent.style.borderRadius = '18px'
+      messageContent.textContent =
+        'Connor is full of energy, he just had Zoomies!'
+      this.energy -= 40
+      alertMessage.appendChild(messageContent)
+      buttons.style.visibility = 'hidden'
+      feedButton.style.visibility = 'visible'
+    }
+  }
 }
 
 class Owner {
@@ -319,9 +387,9 @@ const startGame = () => {
   decreaseStatus()
   createButtons()
   countdown()
-  setInterval(function () {
-    if (!events.length == 0) randomEvent()
-  }, 10 * 1000)
+  // setInterval(function () {
+  //   if (!events.length == 0) randomEvent()
+  // }, 60 * 1000)
 }
 
 // functions definitions
@@ -383,6 +451,7 @@ const createButtons = () => {
 
   feedButton.addEventListener('click', () => {
     dog.feed()
+    dog.checkStatus()
   })
 
   walkButton = document.createElement('button')
@@ -393,6 +462,7 @@ const createButtons = () => {
 
   walkButton.addEventListener('click', () => {
     dog.walk()
+    dog.checkStatus()
   })
 
   playButton = document.createElement('button')
