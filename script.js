@@ -59,32 +59,60 @@ class Dog {
   }
   feed() {
     let index = Math.floor(Math.random() * 2)
-    if (index == 0) {
-      this.health += 10
-      console.log(this.health)
-      let index = Math.floor(Math.random() * healthyFood.length)
-      dialogue.textContent = `You fed Connor ${healthyFood[index]}. The food was delicious and healthy.`
-    } else if (index == 1) {
-      this.health -= 10
-      console.log(this.health)
-      let index = Math.floor(Math.random() * unhealthyFood.length)
-      if (index == 1) {
-        dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The seeds irritated his stomach.`
-      } else
-        dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The food irritated his stomach.`
+    if (this.hunger == 100) {
+      dialogue.textContent = `Connor feels full, he refuses to eat.`
+    } else if (this.hunger < 100) {
+      if (index == 0) {
+        this.health += 10
+        this.hunger += 10
+        let index = Math.floor(Math.random() * healthyFood.length)
+        dialogue.textContent = `You fed Connor ${healthyFood[index]}. The food was delicious and healthy.`
+      } else if (index == 1) {
+        this.health -= 10
+        this.hunger += 10
+        let index = Math.floor(Math.random() * unhealthyFood.length)
+        if (index == 1) {
+          dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The seeds irritated his stomach.`
+        } else
+          dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The food irritated his stomach.`
+      }
     }
-    if (this.health <= 0) {
-      endGame()
+    // if (this.health <= 0) {
+    //   endGame()
+    // }
+    console.log(`Health: ${this.health} Hunger: ${this.hunger}`)
+  }
+  walk() {
+    let index = Math.floor(Math.random() * 45)
+    if (index <= 20) {
+      dialogue.textContent = `You walked Connor for ${index} minutes. He still feels energetic and ready for more activities`
+    } else if (index > 20) {
+      dialogue.textContent = `You walked Connor for ${index} minutes. He feels tired now. Connor takes a little nap.`
     }
   }
   play() {
     let index = Math.floor(Math.random() * dogGames.length)
     dialogue.textContent = `You played ${dogGames[index]} with Connor. He enjoyed his time but the game left him a bit tired.`
   }
-  sleep() {}
-  pet() {}
-  walk() {}
-  reward() {}
+  sleep() {
+    let index = Math.floor(Math.random() * 30)
+    if (index <= 15) {
+      dialogue.textContent = `Connor napped for ${index} minutes. He still feels tired and wants to sleep some more.`
+    } else if (index > 15) {
+      dialogue.textContent = `Connor slept for ${index} minutes. He feels refreshed now. That was such a power nap!`
+    }
+  }
+  reward() {
+    dialogue.textContent = `You gave Connor a treat, he jumps around happily, asking for more.`
+  }
+  pet() {
+    let index = Math.floor(Math.random() * 2)
+    if (index == 0) {
+      dialogue.textContent = `You gave Connor some belly rubs, he wiggles around happily, asking for more.`
+    } else if (index == 1) {
+      dialogue.textContent = `You pat on Connor's head, he wags his tail happily, asking for more.`
+    }
+  }
   treat() {}
   checkStatus() {}
 }
@@ -363,6 +391,10 @@ const createButtons = () => {
   walkButton.textContent = 'Walk'
   buttons.appendChild(walkButton)
 
+  walkButton.addEventListener('click', () => {
+    dog.walk()
+  })
+
   playButton = document.createElement('button')
   playButton.setAttribute('id', 'play')
   playButton.setAttribute('class', 'clickable')
@@ -379,17 +411,29 @@ const createButtons = () => {
   sleepButton.textContent = 'Sleep'
   buttons.appendChild(sleepButton)
 
+  sleepButton.addEventListener('click', () => {
+    dog.sleep()
+  })
+
   rewardButton = document.createElement('button')
   rewardButton.setAttribute('id', 'reward')
   rewardButton.setAttribute('class', 'clickable')
   rewardButton.textContent = 'Reward'
   buttons.appendChild(rewardButton)
 
+  rewardButton.addEventListener('click', () => {
+    dog.reward()
+  })
+
   petButton = document.createElement('button')
   petButton.setAttribute('id', 'pet')
   petButton.setAttribute('class', 'clickable')
   petButton.textContent = 'Pet'
   buttons.appendChild(petButton)
+
+  petButton.addEventListener('click', () => {
+    dog.pet()
+  })
 }
 
 const countdown = () => {
@@ -414,7 +458,6 @@ const randomEvent = () => {
   buttons.style.visibility = 'hidden'
   let index = Math.floor(Math.random() * events.length)
   events[index]()
-  console.log(events)
   events.splice(index, 1)
 }
 
@@ -499,10 +542,10 @@ const outcomes = (reaction) => {
   }
 }
 
-const endGame = () => {
-  console.log('game ended')
-  buttons.remove()
-}
+// const endGame = () => {
+//   console.log('game ended')
+//   buttons.remove()
+// }
 
 // event listeners
 startButton.addEventListener('click', startGame)
