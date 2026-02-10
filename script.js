@@ -58,7 +58,7 @@ class Dog {
   feed() {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
-      this.health -= 10
+      this.health += 10
       console.log(this.health)
       let index = Math.floor(Math.random() * healthyFood.length)
       dialogue.textContent = `You fed Connor ${healthyFood[index]}. The food was delicious and healthy.`
@@ -287,8 +287,8 @@ const startGame = () => {
   createButtons()
   countdown()
   setInterval(function () {
-    randomEvent()
-  }, 60 * 1000)
+    if (!events.length == 0) randomEvent()
+  }, 2 * 1000)
 }
 
 // functions definitions
@@ -404,6 +404,8 @@ const countdown = () => {
 const randomEvent = () => {
   let index = Math.floor(Math.random() * events.length)
   events[index]()
+  console.log(events)
+  events.splice(index, 1)
 }
 
 const outcomes = (reaction) => {
