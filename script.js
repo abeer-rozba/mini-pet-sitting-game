@@ -37,6 +37,8 @@ const unhealthyFood = [
   'coffee'
 ]
 
+const dogGames = ['fetch', 'tug-of-war', 'hide-and-seek', 'treasure hunt']
+
 const chocolate = [
   "Connor just ate 6 ounces of Peanut M&Ms. He seems a bit restless, you're worried that he's poisoned. What do you do?",
   "Connor just ate one Hershey's milk chocolate bar. He seems fine but you're still worried he's poisoned. What do you do?"
@@ -75,7 +77,10 @@ class Dog {
       endGame()
     }
   }
-  play() {}
+  play() {
+    let index = Math.floor(Math.random() * dogGames.length)
+    dialogue.textContent = `You played ${dogGames[index]} with Connor. He enjoyed his time but the game left him a bit tired.`
+  }
   sleep() {}
   pet() {}
   walk() {}
@@ -288,7 +293,7 @@ const startGame = () => {
   countdown()
   setInterval(function () {
     if (!events.length == 0) randomEvent()
-  }, 2 * 1000)
+  }, 10 * 1000)
 }
 
 // functions definitions
@@ -364,6 +369,10 @@ const createButtons = () => {
   playButton.textContent = 'Play'
   buttons.appendChild(playButton)
 
+  playButton.addEventListener('click', () => {
+    dog.play()
+  })
+
   sleepButton = document.createElement('button')
   sleepButton.setAttribute('id', 'sleep')
   sleepButton.setAttribute('class', 'clickable')
@@ -402,6 +411,7 @@ const countdown = () => {
 }
 
 const randomEvent = () => {
+  buttons.style.visibility = 'hidden'
   let index = Math.floor(Math.random() * events.length)
   events[index]()
   console.log(events)
@@ -409,6 +419,7 @@ const randomEvent = () => {
 }
 
 const outcomes = (reaction) => {
+  buttons.style.visibility = 'visible'
   if (reaction.id === 'home-remedy') {
     dialogue.textContent =
       "You gave Connor a boiled chicken with plain rice. He barely touched it, he's still sick."
