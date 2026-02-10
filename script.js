@@ -59,11 +59,12 @@ class Dog {
   feed() {
     if (this.isHungry == true) {
       alertMessage.remove()
+      buttons.style.visibility = 'visible'
     }
     let index = Math.floor(Math.random() * 2)
     if (this.hunger == 0) {
       dialogue.textContent = `Connor feels full, he refuses to eat.`
-    } else if (this.hunger > 0 && this.hunger !== 100) {
+    } else if (this.hunger > 0) {
       if (index == 0) {
         if (this.health !== 100) this.health += 10
         this.hunger -= 10
@@ -98,7 +99,7 @@ class Dog {
       dialogue.textContent = `You walked Connor for ${index} minutes. He still feels energetic and ready for more activities`
     } else if (index > 20) {
       this.health += 5
-      if (this.hunger !== 100) this.hunger += 20
+      if (this.hunger !== 100) this.hunger += 10
       this.happiness += 10
       this.energy -= 10
       dialogue.textContent = `You walked Connor for ${index} minutes. He feels tired now. Connor takes a little nap.`
