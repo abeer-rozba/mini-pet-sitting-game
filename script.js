@@ -69,6 +69,8 @@ class Dog {
   feed() {
     if (this.isHungry == true) {
       alertMessage.remove()
+      feedButton.style.visibility = 'inherit'
+      rewardButton.style.visibility = 'inherit'
       buttons.style.visibility = 'visible'
     }
     let index = Math.floor(Math.random() * 2)
@@ -122,6 +124,9 @@ class Dog {
     if (this.isUnhappy == true) {
       this.isUnhappy = false
       alertMessage.remove()
+      playButton.style.visibility = 'inherit'
+      rewardButton.style.visibility = 'inherit'
+      petButton.style.visibility = 'inherit'
       buttons.style.visibility = 'visible'
     }
     let index = Math.floor(Math.random() * dogGames.length)
@@ -137,6 +142,8 @@ class Dog {
       alertMessage.remove()
       this.isSick = false
       this.isTired = false
+      sleepButton.style.visibility = 'inherit'
+      feedButton.style.visibility = 'inherit'
       buttons.style.visibility = 'visible'
     }
     let index = Math.floor(Math.random() * 30) + 1
@@ -603,7 +610,7 @@ const createButtons = () => {
 }
 
 const countdown = () => {
-  let time = 60
+  let time = 300
   const clock = setInterval(() => {
     if (gameEnded == true) {
       if (alertMessage) {
@@ -639,7 +646,7 @@ const countdown = () => {
       return
     }
 
-    if (time % 10 == 0 && events.length > 0) randomEvent()
+    if (time % 60 == 0 && events.length > 0) randomEvent()
   }, 1000)
 }
 
@@ -651,7 +658,6 @@ const randomEvent = () => {
 }
 
 const restartGame = () => {
-  console.log('restarted')
   if (alertMessage) {
     alertMessage.remove()
     alertMessage = null
@@ -692,9 +698,9 @@ const endGame = (reason) => {
   const endingScene = document.createElement('p')
   dialogue.appendChild(endingScene)
   if (reason === 'seizure') {
-    endingScene.textContent = `The type and amount of Chocolate that Connor ate were of severe toxicity, he suffered a seizure. Connor's owner comes back to find his dog in this awful state. He slaps you, pays you nothing, and says that he's going to sue you.`
+    endingScene.textContent = `Connor's owner comes back to find his dog in this awful state. He slaps you, pays you nothing, and says that he's going to sue you.`
   } else if (reason === 'ranAway') {
-    endingScene.textContent = `Connor's owner came back to find out that you lost his dog. He slaps you and pays you nothing.`
+    endingScene.textContent = `When Connor's owner found out you lost his dog. He slapped you and refused to pay you anything.`
   } else if (reason === 'timeIsUp') {
     if (
       dog.health > 50 &&
@@ -783,6 +789,7 @@ const outcomes = (reaction) => {
   } else if (reaction.id === 'do-nothing') {
     if (chocolateType == 0) {
       dog.health = 5
+      dialogue.textContent = `The type and amount of Chocolate that Connor ate were of severe toxicity, he suffered a seizure.`
       endGame('seizure')
     } else if (chocolateType == 1) {
       dialogue.textContent =
