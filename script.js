@@ -323,16 +323,6 @@ class Dog {
   }
 }
 
-class Owner {
-  constructor() {
-    this.payable = 100
-    this.tipAmount = 0
-  }
-  slap() {}
-  tip() {}
-  sue() {}
-}
-
 const dog = new Dog()
 
 const sickPet = () => {
@@ -614,7 +604,7 @@ const createButtons = () => {
 }
 
 const countdown = () => {
-  let time = 300
+  let time = 10
   const clock = setInterval(() => {
     if (gameEnded == true) {
       if (alertMessage) {
@@ -647,14 +637,12 @@ const countdown = () => {
         reactionsDiv.remove()
         reactionsDiv = null
       }
-      buttons.style.visibility = 'hidden'
-      if (restartButton) restartButton.style.visibility = 'visible'
       endGame('timeIsUp')
       clearInterval(clock)
       return
     }
 
-    if (time % 10 == 0 && events.length > 0) randomEvent()
+    if (time % 20 == 0 && events.length > 0) randomEvent()
   }, 1000)
 }
 
@@ -667,9 +655,18 @@ const randomEvent = () => {
 
 const restartGame = () => {
   console.log('restarted')
-  if (alertMessage) alertMessage.remove()
-  if (reactionsDiv) reactionsDiv.remove()
-  if (timer) timer.remove()
+  if (alertMessage) {
+    alertMessage.remove()
+    alertMessage = null
+  }
+  if (reactionsDiv) {
+    reactionsDiv.remove()
+    reactionsDiv = null
+  }
+  if (timer) {
+    timer.remove()
+    timer = null
+  }
   buttons.innerHTML = ''
   dog.health = 50
   dog.hunger = 50
@@ -701,39 +698,42 @@ const endGame = (reason) => {
     dialogue.textContent = `Connor's owner came back to find out that you lost his dog. He slaps you and pays you nothing.`
   } else if (reason === 'timeIsUp') {
     if (
-      dog.health >= 50 &&
-      dog.hunger >= 50 &&
-      dog.happiness >= 50 &&
-      dog.energy >= 50
+      dog.health > 50 &&
+      dog.hunger > 50 &&
+      dog.happiness > 50 &&
+      dog.energy > 50
     ) {
       dialogue.textContent = `Connor's owner came back and found his dog well taken care of. He's pleased with you, he pays you $100 and tips you an extra $20.`
     } else if (
-      dog.health < 50 &&
-      dog.hunger < 50 &&
-      dog.happiness < 50 &&
-      dog.energy < 50
+      dog.health < 40 &&
+      dog.hunger < 40 &&
+      dog.happiness < 40 &&
+      dog.energy < 40
     ) {
-      dialogue.textContent = `Connor's owner came back and found his dog in a not-so-great condition. He's angry, but he pays you a $100 anyway, muttering something about not hiring you again.`
-    }
+      dialogue.textContent = `Connor's owner came back and found his dog in a not-so-great condition. He's angry; he pays you $50 only, muttering something about not hiring you again.`
+    } else
+      dialogue.textContent = `Connor's owner came back and found his dog in a good condition. He thanks you and pays you $100, wishing you a good day.`
   }
 
   if (alertMessage) {
     alertMessage.remove()
+    alertMessage = null
   }
   if (reactionsDiv) {
     reactionsDiv.remove()
+    reactionsDiv = null
   }
   buttons.style.visibility = 'hidden'
   dog.statusLimits()
   dog.changeStatusColor()
   gameEnded = true
-  console.log(reason)
 
   restartButton = document.createElement('button')
   restartButton.setAttribute('id', 'restart-game')
   restartButton.setAttribute('class', 'clickable')
   restartButton.textContent = 'Restart game'
   buttons.appendChild(restartButton)
+  restartButton.style.visibility = 'visible'
 
   restartButton.addEventListener('click', () => {
     restartGame()
@@ -839,7 +839,6 @@ const outcomes = (reaction) => {
   energy.textContent = dog.energy
   dog.checkStatus()
   dog.changeStatusColor()
-  endGame('seizure')
 }
 
 // event listeners
