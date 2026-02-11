@@ -614,6 +614,15 @@ const countdown = () => {
   let time = 300
   const clock = setInterval(() => {
     if (gameEnded == true) {
+      if (alertMessage) {
+        alertMessage.remove()
+        alertMessage = null
+      }
+      if (reactionsDiv) {
+        reactionsDiv.remove()
+        reactionsDiv = null
+      }
+      buttons.style.visibility = 'hidden'
       clearInterval(clock)
     }
 
@@ -626,6 +635,15 @@ const countdown = () => {
     // https://community.testmuai.com/t/how-can-i-create-a-simple-javascript-countdown-timer/31822/2
 
     if (time <= 0) {
+      if (alertMessage) {
+        alertMessage.remove()
+        alertMessage = null
+      }
+      if (reactionsDiv) {
+        reactionsDiv.remove()
+        reactionsDiv = null
+      }
+      buttons.style.visibility = 'hidden'
       endGame('timeIsUp')
       clearInterval(clock)
       return
@@ -643,11 +661,18 @@ const randomEvent = () => {
 }
 
 const endGame = (reason) => {
+  if (alertMessage) {
+    alertMessage.remove()
+    alertMessage = null
+  }
+  if (reactionsDiv) {
+    reactionsDiv.remove()
+    reactionsDiv = null
+  }
+  buttons.style.visibility = 'hidden'
   dog.statusLimits()
   dog.changeStatusColor()
   gameEnded = true
-  if (alertMessage) alertMessage.style.visibility = 'hidden'
-  buttons.style.visibility = 'hidden'
   console.log(reason)
 }
 
@@ -694,7 +719,7 @@ const outcomes = (reaction) => {
     }
   } else if (reaction.id === 'do-nothing') {
     if (chocolateType == 0) {
-      dog.health -= 80
+      dog.health = 5
       dialogue.textContent =
         'The type and amount of Chocolate that Connor ate were of severe toxicity, he suffered a seizure.'
       endGame('seizure')
