@@ -10,10 +10,6 @@ const health = document.querySelector('#health')
 const hunger = document.querySelector('#hunger')
 const happiness = document.querySelector('#happiness')
 const energy = document.querySelector('#energy')
-const healthClass = document.querySelector('.health')
-const hungerClass = document.querySelector('.hunger')
-const happinessClass = document.querySelector('.happiness')
-const energyClass = document.querySelector('.energy')
 const usernameSpan = document.querySelector('#username')
 
 // regular buttons + timer
@@ -203,6 +199,10 @@ class Dog {
     if (this.energy <= 0) this.energy = 0
   }
   changeStatusColor() {
+    const healthClass = document.querySelector('.health')
+    const hungerClass = document.querySelector('.hunger')
+    const happinessClass = document.querySelector('.happiness')
+    const energyClass = document.querySelector('.energy')
     if (this.health >= 70) {
       healthClass.style.backgroundColor = 'rgb(116, 194, 92)'
     }
