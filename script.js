@@ -24,7 +24,8 @@ let feedButton,
   petButton,
   timer,
   alertMessage,
-  messageContent
+  messageContent,
+  gameEnded
 
 // random events buttons
 let treatButton1, treatButton2, treatButton3, reactionsDiv, chocolateType
@@ -199,7 +200,7 @@ class Dog {
     if (this.energy >= 100) this.energy = 100
     if (this.energy <= 0) this.energy = 0
   }
-  checkStatus() {
+  changeStatusColor() {
     if (this.health >= 70) {
       healthClass.style.backgroundColor = 'rgb(116, 194, 92)'
     }
@@ -236,7 +237,8 @@ class Dog {
     if (this.energy <= 30) {
       energyClass.style.backgroundColor = 'rgb(204, 22, 22)'
     }
-
+  }
+  checkStatus() {
     if (this.health <= 0) {
       this.isSick = true
       alertMessage = document.createElement('div')
@@ -520,9 +522,13 @@ const startGame = () => {
   startingSettings()
   createButtons()
   countdown()
-  setInterval(function () {
+  const clock = setInterval(function () {
+    if (gameEnded == true) {
+      clearInterval(clock)
+    }
+
     if (!events.length == 0) randomEvent()
-  }, 30 * 1000)
+  }, 10 * 1000)
 }
 
 // functions definitions
@@ -543,7 +549,7 @@ const startingSettings = () => {
   hunger.textContent = dog.hunger
   happiness.textContent = dog.happiness
   energy.textContent = dog.energy
-  dog.checkStatus()
+  dog.changeStatusColor()
 }
 
 const createButtons = () => {
@@ -556,6 +562,7 @@ const createButtons = () => {
   feedButton.addEventListener('click', () => {
     dog.feed()
     dog.checkStatus()
+    dog.changeStatusColor()
   })
 
   walkButton = document.createElement('button')
@@ -567,6 +574,7 @@ const createButtons = () => {
   walkButton.addEventListener('click', () => {
     dog.walk()
     dog.checkStatus()
+    dog.changeStatusColor()
   })
 
   playButton = document.createElement('button')
@@ -578,6 +586,7 @@ const createButtons = () => {
   playButton.addEventListener('click', () => {
     dog.play()
     dog.checkStatus()
+    dog.changeStatusColor()
   })
 
   sleepButton = document.createElement('button')
@@ -589,6 +598,7 @@ const createButtons = () => {
   sleepButton.addEventListener('click', () => {
     dog.sleep()
     dog.checkStatus()
+    dog.changeStatusColor()
   })
 
   rewardButton = document.createElement('button')
@@ -600,6 +610,7 @@ const createButtons = () => {
   rewardButton.addEventListener('click', () => {
     dog.reward()
     dog.checkStatus()
+    dog.changeStatusColor()
   })
 
   petButton = document.createElement('button')
@@ -611,6 +622,7 @@ const createButtons = () => {
   petButton.addEventListener('click', () => {
     dog.pet()
     dog.checkStatus()
+    dog.changeStatusColor()
   })
 }
 
@@ -619,7 +631,7 @@ const countdown = () => {
   let time = 300
 
   const clock = setInterval(() => {
-    if (time <= 0) {
+    if (time <= 0 || gameEnded == true) {
       clearInterval(clock)
     }
 
@@ -639,6 +651,14 @@ const randomEvent = () => {
   events.splice(index, 1)
 }
 
+const endGame = () => {
+  dog.statusLimits()
+  dog.changeStatusColor()
+  gameEnded = true
+  alertMessage.style.visibility = 'hidden'
+  buttons.style.visibility = 'hidden'
+}
+
 const outcomes = (reaction) => {
   buttons.style.visibility = 'visible'
   if (reaction.id === 'home-remedy') {
@@ -649,7 +669,7 @@ const outcomes = (reaction) => {
     dialogue.textContent =
       "You spent $230 on Connor's vet visit. He received proper treatment and he feels better now."
   } else if (reaction.id === 'hope') {
-    dog.health -= 20
+    dog.health -= 40
     dialogue.textContent =
       "Connor's condition is getting worse and worse. How heartless can you be?"
   }
@@ -669,14 +689,14 @@ const outcomes = (reaction) => {
         dog.health += 20
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting. While you should have consulted a vet first, this worked anyway. Connor is now better.`
       } else if (index > 3) {
-        dog.health -= 60
+        dog.health -= 80
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting, that's too much. You caused severe chemical burns to Connor's mouth.`
       }
     } else if (chocolateType == 1) {
       if (index <= 3) {
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting. Connor didn't need it since he only ate a small amount of milk chocolate. Fortunately, this didn't harm him.`
       } else if (index > 3) {
-        dog.health -= 70
+        dog.health -= 80
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting, that's too much. Connor didn't need it since he only ate a small amount of white chocolate, and on top of that you caused his mouth severe chemical burns.`
       }
     }
@@ -685,6 +705,7 @@ const outcomes = (reaction) => {
       dog.health -= 80
       dialogue.textContent =
         'The type and amount of Chocolate that Connor ate were of severe toxicity, he suffered a seizure.'
+      endGame()
     } else if (chocolateType == 1) {
       dialogue.textContent =
         "The Hershey's bar was small, Connor is doing absolutely fine. You are lucky that nothing happened. "
@@ -695,6 +716,7 @@ const outcomes = (reaction) => {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
       dialogue.textContent = `You chased Connor until you physically collapsed. He kept running faster and faster, and you couldn't catch him.`
+      endGame()
     } else if (index == 1) {
       dialogue.textContent = `You chased Connor until you eventually caught him. Connor licks your face, he just wanted to play.`
     }
@@ -702,6 +724,7 @@ const outcomes = (reaction) => {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
       dialogue.textContent = `You wasted your time putting up posters instead of looking for Connor. His owner is back now and he is mad.`
+      endGame()
     } else if (index == 1) {
       dialogue.textContent = `30 minutes after you put up the posters, a nice lady approaches, holding Connor in her arms. Phew, you got lucky!`
     }
@@ -709,6 +732,7 @@ const outcomes = (reaction) => {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
       dialogue.textContent = `You tried to lure Connor with a treat but he didn't fall for it. Seems like he preferred finding his own treat in the street`
+      endGame()
     } else if (index == 1) {
       dog.happiness += 5
       dialogue.textContent = `You lured Connor with a treat. He quickly ran back towards you and jumped around begging for biscuits.`
@@ -728,16 +752,13 @@ const outcomes = (reaction) => {
     dialogue.textContent =
       "You take Connor on a walk that stimulates his senses and drains his energy out. When you're back, Connor sleeps."
   }
-
+  dog.statusLimits()
   health.textContent = dog.health
   happiness.textContent = dog.happiness
   energy.textContent = dog.energy
+  dog.checkStatus()
+  dog.changeStatusColor()
 }
-
-// const endGame = () => {
-//   console.log('game ended')
-//   buttons.remove()
-// }
 
 // event listeners
 startButton.addEventListener('click', startGame)
