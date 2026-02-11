@@ -17,7 +17,7 @@
 ### Getting Started
 1. Fork and clone this repository to your machine.
 2. Open the index.html in a live server.
-3. Otherwise navigate to this [live website](https://crowded-doll.surge.sh/) to play the game.
+3. Otherwise navigate to this [live website](https://embarrassed-touch.surge.sh/) to play the game.
 4. Now you can start the game.
 5. Take care of the dog and keep him healthy at all times!
 6. If any of the dog's status go under 20, you might get in trouble.
