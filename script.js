@@ -151,9 +151,11 @@ class Dog {
       dialogue.textContent = `Connor slept for ${index} minutes. He feels refreshed now. That was such a power nap!`
     }
     this.hunger += 5
+    this.happiness -= 5
     this.statusLimits()
     health.textContent = this.health
     energy.textContent = this.energy
+    happiness.textContent = this.happiness
   }
   reward() {
     if (this.isUnhappy == true) {
@@ -197,9 +199,43 @@ class Dog {
     if (this.energy <= 0) this.energy = 0
   }
   checkStatus() {
+    if (this.health >= 70) {
+      healthClass.style.backgroundColor = 'rgb(116, 194, 92)'
+    }
     if (this.health < 70) {
       healthClass.style.backgroundColor = 'rgb(231, 141, 7)'
     }
+    if (this.health <= 30) {
+      healthClass.style.backgroundColor = 'rgb(204, 22, 22)'
+    }
+    if (this.hunger >= 70) {
+      hungerClass.style.backgroundColor = 'rgb(204, 22, 22)'
+    }
+    if (this.hunger < 70) {
+      hungerClass.style.backgroundColor = 'rgb(231, 141, 7)'
+    }
+    if (this.hunger <= 30) {
+      hungerClass.style.backgroundColor = 'rgb(116, 194, 92)'
+    }
+    if (this.happiness >= 70) {
+      happinessClass.style.backgroundColor = 'rgb(116, 194, 92)'
+    }
+    if (this.happiness < 70) {
+      happinessClass.style.backgroundColor = 'rgb(231, 141, 7)'
+    }
+    if (this.happiness <= 30) {
+      happinessClass.style.backgroundColor = 'rgb(204, 22, 22)'
+    }
+    if (this.energy >= 70) {
+      energyClass.style.backgroundColor = 'rgb(116, 194, 92)'
+    }
+    if (this.energy < 70) {
+      energyClass.style.backgroundColor = 'rgb(231, 141, 7)'
+    }
+    if (this.energy <= 30) {
+      energyClass.style.backgroundColor = 'rgb(204, 22, 22)'
+    }
+
     if (this.health <= 0) {
       this.isSick = true
       alertMessage = document.createElement('div')
