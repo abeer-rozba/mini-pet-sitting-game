@@ -141,6 +141,7 @@ class Dog {
       buttons.style.visibility = 'visible'
     }
     let index = Math.floor(Math.random() * 30) + 1
+    if (this.energy >= 60) index = 20
     if (index <= 15) {
       this.health += 5
       this.energy += 5
@@ -727,6 +728,10 @@ const outcomes = (reaction) => {
     dialogue.textContent =
       "You take Connor on a walk that stimulates his senses and drains his energy out. When you're back, Connor sleeps."
   }
+
+  health.textContent = dog.health
+  happiness.textContent = dog.happiness
+  energy.textContent = dog.energy
 }
 
 // const endGame = () => {
