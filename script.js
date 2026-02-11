@@ -122,10 +122,10 @@ class Dog {
     this.happiness += 10
     this.energy -= 5
     dialogue.textContent = `You played ${dogGames[index]} with Connor. He enjoyed his time but the game left him a bit tired.`
+    this.statusLimits()
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
     )
-    this.statusLimits()
   }
   sleep() {
     if (this.isSick == true || this.isTired == true) {
@@ -158,6 +158,7 @@ class Dog {
     }
     this.happiness += 10
     this.health -= 10
+    this.hunger -= 5
     this.statusLimits()
     dialogue.textContent = `You gave Connor a treat, he jumps around happily, asking for more.`
     console.log(
@@ -229,6 +230,7 @@ class Dog {
       alertMessage.appendChild(messageContent)
       buttons.style.visibility = 'hidden'
       feedButton.style.visibility = 'visible'
+      rewardButton.style.visibility = 'visible'
     } else if (this.happiness <= 0) {
       this.isUnhappy = true
       alertMessage = document.createElement('div')
