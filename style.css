@@ -64,7 +64,6 @@ button {
 
 #start-game,
 #restart-game {
-  /* https://www.reddit.com/r/webdev/comments/1diix0e/centering_a_div_nowadays_what_are_the_best/ */
   position: absolute;
   top: 93%;
   left: 50%;
@@ -116,7 +115,6 @@ button {
 }
 
 .clickable:hover {
-  /* https://stackoverflow.com/questions/4564251/change-the-mouse-pointer-using-javascript */
   cursor: pointer;
 }
 
@@ -139,7 +137,7 @@ button {
   border: none;
   border-radius: 18px;
   text-align: center;
-  line-height: 45px; /* https://stackoverflow.com/questions/9629312/align-text-to-left-and-vertically-center-in-div */
+  line-height: 45px;
   padding: 10px;
   font-family: 'Pixelify Sans', sans-serif;
   font-size: 20px;

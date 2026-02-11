@@ -494,10 +494,9 @@ const ruinedCouch = () => {
   })
 }
 
-const events = [sickPet, ateChocolate, escaped, ruinedCouch] // https://stackoverflow.com/questions/3592468/can-i-store-javascript-functions-in-arrays, https://www.geeksforgeeks.org/javascript/array-of-functions-in-javascript/
+const events = [sickPet, ateChocolate, escaped, ruinedCouch]
 
 usernameSpan.textContent = localStorage.getItem('username')
-// https://coreui.io/answers/how-to-get-an-item-from-localstorage-in-javascript/
 
 const restartDialogue = dialogue.textContent
 
@@ -604,7 +603,7 @@ const createButtons = () => {
 }
 
 const countdown = () => {
-  let time = 10
+  let time = 300
   const clock = setInterval(() => {
     if (gameEnded == true) {
       if (alertMessage) {
@@ -626,8 +625,6 @@ const countdown = () => {
     timer.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
     time--
 
-    // https://community.testmuai.com/t/how-can-i-create-a-simple-javascript-countdown-timer/31822/2
-
     if (time <= 0) {
       if (alertMessage) {
         alertMessage.remove()
@@ -642,7 +639,7 @@ const countdown = () => {
       return
     }
 
-    if (time % 20 == 0 && events.length > 0) randomEvent()
+    if (time % 60 == 0 && events.length > 0) randomEvent()
   }, 1000)
 }
 
@@ -699,14 +696,14 @@ const endGame = (reason) => {
   } else if (reason === 'timeIsUp') {
     if (
       dog.health > 50 &&
-      dog.hunger > 50 &&
+      dog.hunger < 40 &&
       dog.happiness > 50 &&
       dog.energy > 50
     ) {
-      dialogue.textContent = `Connor's owner came back and found his dog well taken care of. He's pleased with you, he pays you $100 and tips you an extra $20.`
+      dialogue.textContent = `Connor's owner came back and found his dog well taken care of. He's pleased with you, he pays you $100, and tips you an extra $20.`
     } else if (
       dog.health < 40 &&
-      dog.hunger < 40 &&
+      dog.hunger > 50 &&
       dog.happiness < 40 &&
       dog.energy < 40
     ) {
