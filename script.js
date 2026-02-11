@@ -14,6 +14,7 @@ const healthClass = document.querySelector('.health')
 const hungerClass = document.querySelector('.hunger')
 const happinessClass = document.querySelector('.happiness')
 const energyClass = document.querySelector('.energy')
+const usernameSpan = document.querySelector('#username')
 
 // regular buttons + timer
 let feedButton,
@@ -516,6 +517,8 @@ const ruinedCouch = () => {
 }
 
 const events = [sickPet, ateChocolate, escaped, ruinedCouch] // https://stackoverflow.com/questions/3592468/can-i-store-javascript-functions-in-arrays, https://www.geeksforgeeks.org/javascript/array-of-functions-in-javascript/
+
+usernameSpan.textContent = localStorage.getItem('username')
 
 // main function
 const startGame = () => {
