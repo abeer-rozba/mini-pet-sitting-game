@@ -695,6 +695,28 @@ const restartGame = () => {
 }
 
 const endGame = (reason) => {
+  if (reason === 'seizure') {
+    dialogue.textContent = `Connor's owner came back to find his dog suffering from a seizure. He slaps you, pays you nothing, and says that he's going to sue you.`
+  } else if (reason === 'ranAway') {
+    dialogue.textContent = `Connor's owner came back to find out that you lost his dog. He slaps you and pays you nothing.`
+  } else if (reason === 'timeIsUp') {
+    if (
+      dog.health >= 50 &&
+      dog.hunger >= 50 &&
+      dog.happiness >= 50 &&
+      dog.energy >= 50
+    ) {
+      dialogue.textContent = `Connor's owner came back and found his dog well taken care of. He's pleased with you, he pays you $100 and tips you an extra $20.`
+    } else if (
+      dog.health < 50 &&
+      dog.hunger < 50 &&
+      dog.happiness < 50 &&
+      dog.energy < 50
+    ) {
+      dialogue.textContent = `Connor's owner came back and found his dog in a not-so-great condition. He's angry, but he pays you a $100 anyway, muttering something about not hiring you again.`
+    }
+  }
+
   if (alertMessage) {
     alertMessage.remove()
   }
@@ -817,7 +839,7 @@ const outcomes = (reaction) => {
   energy.textContent = dog.energy
   dog.checkStatus()
   dog.changeStatusColor()
-  endGame()
+  endGame('seizure')
 }
 
 // event listeners
