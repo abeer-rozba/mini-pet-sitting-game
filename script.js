@@ -71,15 +71,15 @@ class Dog {
       if (index == 0) {
         if (this.health !== 100) this.health += 10
         this.hunger -= 10
-        if (this.happiness !== 100) this.happiness += 5
-        this.energy += 5
+        if (this.happiness !== 100) this.happiness += 10
+        this.energy += 10
         let index = Math.floor(Math.random() * healthyFood.length)
         dialogue.textContent = `You fed Connor ${healthyFood[index]}. The food was delicious and healthy.`
       } else if (index == 1) {
         if (this.health !== 0) this.health -= 10
         this.hunger -= 10
-        if (this.happiness !== 0) this.happiness -= 5
-        this.energy += 5
+        if (this.happiness !== 0) this.happiness -= 10
+        this.energy += 10
         let index = Math.floor(Math.random() * unhealthyFood.length)
         if (index == 1) {
           dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The seeds irritated his stomach.`
@@ -95,16 +95,16 @@ class Dog {
   walk() {
     let index = Math.floor(Math.random() * 45)
     if (index <= 20) {
-      this.health += 5
+      if (this.health !== 100) this.health += 10
       if (this.hunger !== 100) this.hunger += 10
-      this.happiness += 10
-      this.energy -= 5
+      if (this.happiness !== 100) this.happiness += 10
+      if (this.energy !== 0) this.energy -= 10
       dialogue.textContent = `You walked Connor for ${index} minutes. He still feels energetic and ready for more activities`
     } else if (index > 20) {
-      this.health += 5
+      if (this.health !== 100) this.health += 10
       if (this.hunger !== 100) this.hunger += 10
-      this.happiness += 10
-      this.energy -= 10
+      if (this.happiness !== 100) this.happiness += 10
+      if (this.energy !== 0) this.energy -= 10
       dialogue.textContent = `You walked Connor for ${index} minutes. He feels tired now. Connor takes a little nap.`
     }
     console.log(
@@ -112,6 +112,12 @@ class Dog {
     )
   }
   play() {
+    if (this.isUnhappy == true) {
+      this.isUnhappy = false
+      this.happiness += 10
+      alertMessage.remove()
+      buttons.style.visibility = 'visible'
+    }
     let index = Math.floor(Math.random() * dogGames.length)
     dialogue.textContent = `You played ${dogGames[index]} with Connor. He enjoyed his time but the game left him a bit tired.`
     console.log(
@@ -125,10 +131,12 @@ class Dog {
     }
     let index = Math.floor(Math.random() * 30)
     if (index <= 15) {
-      this.health += 5
+      this.health += 10
+      this.happiness -= 10
       dialogue.textContent = `Connor napped for ${index} minutes. He still feels tired and wants to sleep some more.`
     } else if (index > 15) {
       this.health += 10
+      this.happiness -= 10
       dialogue.textContent = `Connor slept for ${index} minutes. He feels refreshed now. That was such a power nap!`
     }
     console.log(
@@ -136,18 +144,28 @@ class Dog {
     )
   }
   reward() {
+    if (this.isUnhappy == true) {
+      this.isUnhappy = false
+      this.happiness += 10
+      alertMessage.remove()
+      buttons.style.visibility = 'visible'
+    }
     dialogue.textContent = `You gave Connor a treat, he jumps around happily, asking for more.`
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
     )
   }
   pet() {
+    if (this.isUnhappy == true) {
+      this.isUnhappy = false
+      this.happiness += 10
+      alertMessage.remove()
+      buttons.style.visibility = 'visible'
+    }
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
-      this.health -= 10
       dialogue.textContent = `You gave Connor some belly rubs, he wiggles around happily, asking for more.`
     } else if (index == 1) {
-      this.health -= 10
       dialogue.textContent = `You pat on Connor's head, he wags his tail happily, asking for more.`
     }
     console.log(
@@ -198,7 +216,30 @@ class Dog {
       feedButton.style.visibility = 'visible'
     }
 
-    if (this.energy == 100) {
+    if (this.happiness <= 0) {
+      this.isUnhappy = true
+      alertMessage = document.createElement('div')
+      alertMessage.style.height = '200px'
+      alertMessage.style.display = 'flex'
+      alertMessage.style.flexDirection = 'column'
+      alertMessage.style.justifyContent = 'center'
+      dialogue.appendChild(alertMessage)
+
+      messageContent = document.createElement('p')
+      messageContent.setAttribute('class', 'reactions')
+      messageContent.style.backgroundColor = 'rgba(216, 115, 14, 0.84)'
+      messageContent.style.border = 'none'
+      messageContent.style.borderRadius = '18px'
+      messageContent.textContent =
+        'Connor feels depressed. Try to cheer him up!'
+      alertMessage.appendChild(messageContent)
+      buttons.style.visibility = 'hidden'
+      playButton.style.visibility = 'visible'
+      rewardButton.style.visibility = 'visible'
+      petButton.style.visibility = 'visible'
+    }
+
+    if (this.energy >= 100) {
       alertMessage = document.createElement('div')
       alertMessage.style.height = '200px'
       alertMessage.style.display = 'flex'
@@ -212,10 +253,8 @@ class Dog {
       messageContent.style.borderRadius = '18px'
       messageContent.textContent =
         'Connor is full of energy, he just had Zoomies!'
-      this.energy -= 40
+      this.energy -= 50
       alertMessage.appendChild(messageContent)
-      buttons.style.visibility = 'hidden'
-      feedButton.style.visibility = 'visible'
     }
   }
 }
@@ -508,6 +547,7 @@ const createButtons = () => {
 
   playButton.addEventListener('click', () => {
     dog.play()
+    dog.checkStatus()
   })
 
   sleepButton = document.createElement('button')
@@ -529,6 +569,7 @@ const createButtons = () => {
 
   rewardButton.addEventListener('click', () => {
     dog.reward()
+    dog.checkStatus()
   })
 
   petButton = document.createElement('button')
