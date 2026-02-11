@@ -75,11 +75,11 @@ class Dog {
         index = 0
       }
       if (index == 0) {
-        if (this.health !== 100) this.health += 10
+        this.health += 10
         let index = Math.floor(Math.random() * healthyFood.length)
         dialogue.textContent = `You fed Connor ${healthyFood[index]}. The food was delicious and healthy.`
       } else if (index == 1) {
-        if (this.health !== 0) this.health -= 10
+        this.health -= 10
         let index = Math.floor(Math.random() * unhealthyFood.length)
         if (index == 1) {
           dialogue.textContent = `You fed Connor ${unhealthyFood[index]}. The seeds irritated his stomach.`
@@ -88,6 +88,7 @@ class Dog {
       }
       this.hunger -= 10
       this.energy += 10
+      this.statusLimits()
       this.isHungry = false
     }
     console.log(
@@ -102,10 +103,11 @@ class Dog {
     } else if (index > 20) {
       dialogue.textContent = `You walked Connor for ${index} minutes. He feels tired now. Connor takes a little nap.`
     }
-    if (this.energy !== 0) this.energy -= 10
+    this.energy -= 10
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
     )
+    this.statusLimits()
   }
   play() {
     if (this.isUnhappy == true) {
@@ -114,12 +116,13 @@ class Dog {
       buttons.style.visibility = 'visible'
     }
     let index = Math.floor(Math.random() * dogGames.length)
-    if (this.happiness !== 100) this.happiness += 10
-    if (this.energy !== 0) this.energy -= 10
+    this.happiness += 10
+    this.energy -= 10
     dialogue.textContent = `You played ${dogGames[index]} with Connor. He enjoyed his time but the game left him a bit tired.`
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
     )
+    this.statusLimits()
   }
   sleep() {
     if (this.isSick == true || this.isTired == true) {
@@ -137,6 +140,7 @@ class Dog {
     this.health += 10
     this.happiness -= 10
     this.energy += 10
+    this.statusLimits()
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
     )
@@ -149,6 +153,7 @@ class Dog {
     }
     this.happiness += 10
     this.health -= 10
+    this.statusLimits()
     dialogue.textContent = `You gave Connor a treat, he jumps around happily, asking for more.`
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
@@ -167,11 +172,20 @@ class Dog {
       dialogue.textContent = `You pat on Connor's head, he wags his tail happily, asking for more.`
     }
     this.happiness += 10
+    this.statusLimits()
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
     )
   }
-  treat() {}
+  statusLimits() {
+    if (this.health >= 100) this.health = 100
+    if (this.health <= 0) this.health = 0
+    if (this.hunger >= 100) this.hunger = 100
+    if (this.happiness >= 100) this.happiness = 100
+    if (this.happiness <= 0) this.happiness = 0
+    if (this.energy >= 100) this.energy = 100
+    if (this.energy <= 0) this.energy = 0
+  }
   checkStatus() {
     if (this.health <= 0) {
       this.isSick = true
@@ -459,11 +473,6 @@ const startGame = () => {
   // setInterval(function () {
   //   if (!events.length == 0) randomEvent()
   // }, 60 * 1000)
-  setInterval(function () {
-    dog.happiness -= 10
-    console.log(dog.happiness)
-    dog.checkStatus()
-  }, 10 * 1000)
 }
 
 // functions definitions
