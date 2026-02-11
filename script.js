@@ -509,6 +509,8 @@ const events = [sickPet, ateChocolate, escaped, ruinedCouch] // https://stackove
 usernameSpan.textContent = localStorage.getItem('username')
 // https://coreui.io/answers/how-to-get-an-item-from-localstorage-in-javascript/
 
+const restartDialogue = dialogue.textContent
+
 // main function
 const startGame = () => {
   startingSettings()
@@ -663,14 +665,41 @@ const randomEvent = () => {
   events.splice(index, 1)
 }
 
+const restartGame = () => {
+  console.log('restarted')
+  if (alertMessage) alertMessage.remove()
+  if (reactionsDiv) reactionsDiv.remove()
+  if (timer) timer.remove()
+  buttons.innerHTML = ''
+  dog.health = 50
+  dog.hunger = 50
+  dog.happiness = 50
+  dog.energy = 50
+  dog.isHungry = false
+  dog.isSick = false
+  dog.isTired = false
+  dog.isUnhappy = false
+  dog.changeStatusColor()
+  health.textContent = dog.health
+  hunger.textContent = dog.hunger
+  happiness.textContent = dog.happiness
+  energy.textContent = dog.energy
+
+  dialogue.textContent = restartDialogue
+  buttons.style.visibility = 'visible'
+  events.length = 0
+  events.push(sickPet, ateChocolate, escaped, ruinedCouch)
+
+  gameEnded = false
+  startGame()
+}
+
 const endGame = (reason) => {
   if (alertMessage) {
     alertMessage.remove()
-    alertMessage = null
   }
   if (reactionsDiv) {
     reactionsDiv.remove()
-    reactionsDiv = null
   }
   buttons.style.visibility = 'hidden'
   dog.statusLimits()
@@ -685,7 +714,7 @@ const endGame = (reason) => {
   buttons.appendChild(restartButton)
 
   restartButton.addEventListener('click', () => {
-    console.log('game restarted')
+    restartGame()
   })
 }
 
@@ -719,14 +748,14 @@ const outcomes = (reaction) => {
         dog.health += 20
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting. While you should have consulted a vet first, this worked anyway. Connor is now better.`
       } else if (index > 3) {
-        dog.health -= 80
+        dog.health = 5
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting, that's too much. You caused severe chemical burns to Connor's mouth.`
       }
     } else if (chocolateType == 1) {
       if (index <= 3) {
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting. Connor didn't need it since he only ate a small amount of milk chocolate. Fortunately, this didn't harm him.`
       } else if (index > 3) {
-        dog.health -= 80
+        dog.health = 5
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting, that's too much. Connor didn't need it since he only ate a small amount of white chocolate, and on top of that you caused his mouth severe chemical burns.`
       }
     }
@@ -788,6 +817,7 @@ const outcomes = (reaction) => {
   energy.textContent = dog.energy
   dog.checkStatus()
   dog.changeStatusColor()
+  endGame()
 }
 
 // event listeners
