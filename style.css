@@ -62,7 +62,8 @@ button {
   box-shadow: 2px 2px rgb(158, 5, 56);
 }
 
-#start-game {
+#start-game,
+#restart-game {
   /* https://www.reddit.com/r/webdev/comments/1diix0e/centering_a_div_nowadays_what_are_the_best/ */
   position: absolute;
   top: 93%;

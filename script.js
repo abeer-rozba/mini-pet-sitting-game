@@ -25,7 +25,8 @@ let feedButton,
   petButton,
   timer,
   alertMessage,
-  messageContent
+  messageContent,
+  restartButton
 
 // random events buttons
 let treatButton1, treatButton2, treatButton3, reactionsDiv, chocolateType
@@ -623,6 +624,7 @@ const countdown = () => {
         reactionsDiv = null
       }
       buttons.style.visibility = 'hidden'
+      if (restartButton) restartButton.style.visibility = 'visible'
       clearInterval(clock)
     }
 
@@ -644,6 +646,7 @@ const countdown = () => {
         reactionsDiv = null
       }
       buttons.style.visibility = 'hidden'
+      if (restartButton) restartButton.style.visibility = 'visible'
       endGame('timeIsUp')
       clearInterval(clock)
       return
@@ -674,6 +677,16 @@ const endGame = (reason) => {
   dog.changeStatusColor()
   gameEnded = true
   console.log(reason)
+
+  restartButton = document.createElement('button')
+  restartButton.setAttribute('id', 'restart-game')
+  restartButton.setAttribute('class', 'clickable')
+  restartButton.textContent = 'Restart game'
+  buttons.appendChild(restartButton)
+
+  restartButton.addEventListener('click', () => {
+    console.log('game restarted')
+  })
 }
 
 const outcomes = (reaction) => {
