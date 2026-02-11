@@ -79,6 +79,29 @@ button {
   border-radius: 18px;
 }
 
+.input {
+  margin: auto;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.username {
+  border: none;
+  border-radius: 18px;
+  padding: 10px;
+  background-color: white;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 20px;
+}
+
+#name-confirmation {
+  width: 150px;
+}
+
 .buttons {
   display: flex;
   width: 800px;

@@ -13,30 +13,17 @@
     <link rel="stylesheet" href="style.css" />
     <title>Pet Sitting Game</title>
   </head>
-  <body>
-    <div class="status-container">
-      <!--https://www.geeksforgeeks.org/web-templates/how-to-create-a-progress-bar-using-html-and-css/-->
-      <div class="status-bar health">Health:<span id="health"></span></div>
-      <div class="status-bar hunger">Hunger:<span id="hunger"></span></div>
-      <div class="status-bar happiness">
-        Happiness:<span id="happiness"></span>
-      </div>
-      <div class="status-bar energy">Energy:<span id="energy"></span></div>
-    </div>
-    <h1 class="headers" id="title">The Puppy Nanny</h1>
-    <div class="game-box">
-      <img src="./images/corgi.png" alt="" width="500px" id="corgi" />
-      <p id="dialogue">
-        Welcome, nanny! You are hired to take care of Connor the Corgi while his
-        owner is gone. It is your job to look after him and make sure that he is
-        healthy and happy until his owner picks him up. You'll receive $100 in
-        return. Remember that your actions might have consequences, so make wise
-        decisions during your time with Connor. Good luck!
-      </p>
-    </div>
-    <div class="buttons">
-      <button id="start-game" class="clickable">Start!</button>
-      <!--add a puppy barking-->
+  <body
+    style="
+      background-image: url(./images/index-background.png);
+      background-size: cover;
+      height: 100%;
+    "
+  >
+    <div class="input">
+      <h1 class="headers" id="title">Hello! What should we call you?</h1>
+      <input type="text" class="username" />
+      <button id="name-confirmation" class="buttons clickable">Okay</button>
     </div>
   </body>
 </html>
