@@ -25,11 +25,11 @@ let feedButton,
   petButton,
   timer,
   alertMessage,
-  messageContent,
-  gameEnded
+  messageContent
 
 // random events buttons
 let treatButton1, treatButton2, treatButton3, reactionsDiv, chocolateType
+let gameEnded = false
 
 const healthyFood = [
   'chicken',
@@ -327,22 +327,9 @@ class Owner {
     this.payable = 100
     this.tipAmount = 0
   }
-  pickUp() {
-    console.log('works')
-  }
   slap() {}
   tip() {}
   sue() {}
-}
-
-class Sitter {
-  constructor() {
-    this.bankAccount = 300
-  }
-  forgive() {}
-  sue() {}
-  chase() {}
-  whistle() {}
 }
 
 const dog = new Dog()
@@ -519,19 +506,13 @@ const ruinedCouch = () => {
 const events = [sickPet, ateChocolate, escaped, ruinedCouch] // https://stackoverflow.com/questions/3592468/can-i-store-javascript-functions-in-arrays, https://www.geeksforgeeks.org/javascript/array-of-functions-in-javascript/
 
 usernameSpan.textContent = localStorage.getItem('username')
+// https://coreui.io/answers/how-to-get-an-item-from-localstorage-in-javascript/
 
 // main function
 const startGame = () => {
   startingSettings()
   createButtons()
   countdown()
-  const clock = setInterval(function () {
-    if (gameEnded == true) {
-      clearInterval(clock)
-    }
-
-    if (!events.length == 0) randomEvent()
-  }, 10 * 1000)
 }
 
 // functions definitions
@@ -630,11 +611,9 @@ const createButtons = () => {
 }
 
 const countdown = () => {
-  // https://community.testmuai.com/t/how-can-i-create-a-simple-javascript-countdown-timer/31822/2
   let time = 300
-
   const clock = setInterval(() => {
-    if (time <= 0 || gameEnded == true) {
+    if (gameEnded == true) {
       clearInterval(clock)
     }
 
@@ -642,8 +621,17 @@ const countdown = () => {
     const seconds = time % 60
     timer.style.left = '7%'
     timer.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
-
     time--
+
+    // https://community.testmuai.com/t/how-can-i-create-a-simple-javascript-countdown-timer/31822/2
+
+    if (time <= 0) {
+      endGame('timeIsUp')
+      clearInterval(clock)
+      return
+    }
+
+    if (time % 10 == 0 && events.length > 0) randomEvent()
   }, 1000)
 }
 
@@ -654,12 +642,13 @@ const randomEvent = () => {
   events.splice(index, 1)
 }
 
-const endGame = () => {
+const endGame = (reason) => {
   dog.statusLimits()
   dog.changeStatusColor()
   gameEnded = true
-  alertMessage.style.visibility = 'hidden'
+  if (alertMessage) alertMessage.style.visibility = 'hidden'
   buttons.style.visibility = 'hidden'
+  console.log(reason)
 }
 
 const outcomes = (reaction) => {
@@ -708,7 +697,7 @@ const outcomes = (reaction) => {
       dog.health -= 80
       dialogue.textContent =
         'The type and amount of Chocolate that Connor ate were of severe toxicity, he suffered a seizure.'
-      endGame()
+      endGame('seizure')
     } else if (chocolateType == 1) {
       dialogue.textContent =
         "The Hershey's bar was small, Connor is doing absolutely fine. You are lucky that nothing happened. "
@@ -719,7 +708,7 @@ const outcomes = (reaction) => {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
       dialogue.textContent = `You chased Connor until you physically collapsed. He kept running faster and faster, and you couldn't catch him.`
-      endGame()
+      endGame('ranAway')
     } else if (index == 1) {
       dialogue.textContent = `You chased Connor until you eventually caught him. Connor licks your face, he just wanted to play.`
     }
@@ -727,7 +716,7 @@ const outcomes = (reaction) => {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
       dialogue.textContent = `You wasted your time putting up posters instead of looking for Connor. His owner is back now and he is mad.`
-      endGame()
+      endGame('ranAway')
     } else if (index == 1) {
       dialogue.textContent = `30 minutes after you put up the posters, a nice lady approaches, holding Connor in her arms. Phew, you got lucky!`
     }
@@ -735,7 +724,7 @@ const outcomes = (reaction) => {
     let index = Math.floor(Math.random() * 2)
     if (index == 0) {
       dialogue.textContent = `You tried to lure Connor with a treat but he didn't fall for it. Seems like he preferred finding his own treat in the street`
-      endGame()
+      endGame('ranAway')
     } else if (index == 1) {
       dog.happiness += 5
       dialogue.textContent = `You lured Connor with a treat. He quickly ran back towards you and jumped around begging for biscuits.`
