@@ -6,6 +6,14 @@ const statusBars = document.querySelectorAll('.status-bar')
 const buttons = document.querySelector('.buttons')
 const body = document.querySelector('body')
 const dialogue = document.querySelector('#dialogue')
+const health = document.querySelector('#health')
+const hunger = document.querySelector('#hunger')
+const happiness = document.querySelector('#happiness')
+const energy = document.querySelector('#energy')
+const healthClass = document.querySelector('.health')
+const hungerClass = document.querySelector('.hunger')
+const happinessClass = document.querySelector('.happiness')
+const energyClass = document.querySelector('.energy')
 
 // regular buttons + timer
 let feedButton,
@@ -65,7 +73,7 @@ class Dog {
       buttons.style.visibility = 'visible'
     }
     let index = Math.floor(Math.random() * 2)
-    if (this.hunger == 0) {
+    if (this.hunger <= 0) {
       dialogue.textContent = `Connor feels full, he refuses to eat.`
     } else if (this.hunger > 0) {
       if (this.isSick == true) {
@@ -90,27 +98,26 @@ class Dog {
       this.energy += 10
       this.statusLimits()
       this.isHungry = false
+      health.textContent = this.health
+      hunger.textContent = this.hunger
+      energy.textContent = this.energy
     }
-    console.log(
-      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
-    )
   }
   walk() {
-    let index = Math.floor(Math.random() * 45)
+    let index = Math.floor(Math.random() * 45) + 1
     if (this.energy <= 10) index = 30
     if (index <= 20) {
       this.hunger += 5
-      this.energy -= 5
+      this.energy -= 10
       dialogue.textContent = `You walked Connor for ${index} minutes. He still feels energetic and ready for more activities`
     } else if (index > 20) {
       this.hunger += 10
-      this.energy -= 10
+      this.energy -= 15
       dialogue.textContent = `You walked Connor for ${index} minutes. He feels tired now. Connor takes a little nap.`
     }
     this.statusLimits()
-    console.log(
-      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
-    )
+    hunger.textContent = this.hunger
+    energy.textContent = this.energy
   }
   play() {
     if (this.isUnhappy == true) {
@@ -123,9 +130,8 @@ class Dog {
     this.energy -= 5
     dialogue.textContent = `You played ${dogGames[index]} with Connor. He enjoyed his time but the game left him a bit tired.`
     this.statusLimits()
-    console.log(
-      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
-    )
+    happiness.textContent = this.happiness
+    energy.textContent = this.energy
   }
   sleep() {
     if (this.isSick == true || this.isTired == true) {
@@ -134,7 +140,7 @@ class Dog {
       this.isTired = false
       buttons.style.visibility = 'visible'
     }
-    let index = Math.floor(Math.random() * 30)
+    let index = Math.floor(Math.random() * 30) + 1
     if (index <= 15) {
       this.health += 5
       this.energy += 5
@@ -146,9 +152,8 @@ class Dog {
     }
     this.hunger += 5
     this.statusLimits()
-    console.log(
-      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
-    )
+    health.textContent = this.health
+    energy.textContent = this.energy
   }
   reward() {
     if (this.isUnhappy == true) {
@@ -161,9 +166,9 @@ class Dog {
     this.hunger -= 5
     this.statusLimits()
     dialogue.textContent = `You gave Connor a treat, he jumps around happily, asking for more.`
-    console.log(
-      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
-    )
+    happiness.textContent = this.happiness
+    health.textContent = this.health
+    hunger.textContent = this.hunger
   }
   pet() {
     if (this.isUnhappy == true) {
@@ -179,13 +184,12 @@ class Dog {
     }
     this.happiness += 10
     this.statusLimits()
-    console.log(
-      `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
-    )
+    happiness.textContent = this.happiness
   }
   statusLimits() {
     if (this.health >= 100) this.health = 100
     if (this.health <= 0) this.health = 0
+    if (this.hunger <= 0) this.hunger = 0
     if (this.hunger >= 100) this.hunger = 100
     if (this.happiness >= 100) this.happiness = 100
     if (this.happiness <= 0) this.happiness = 0
@@ -193,6 +197,9 @@ class Dog {
     if (this.energy <= 0) this.energy = 0
   }
   checkStatus() {
+    if (this.health < 70) {
+      healthClass.style.backgroundColor = 'rgb(231, 141, 7)'
+    }
     if (this.health <= 0) {
       this.isSick = true
       alertMessage = document.createElement('div')
@@ -474,12 +481,11 @@ const events = [sickPet, ateChocolate, escaped, ruinedCouch] // https://stackove
 // main function
 const startGame = () => {
   startingSettings()
-  decreaseStatus()
   createButtons()
   countdown()
-  // setInterval(function () {
-  //   if (!events.length == 0) randomEvent()
-  // }, 60 * 1000)
+  setInterval(function () {
+    if (!events.length == 0) randomEvent()
+  }, 30 * 1000)
 }
 
 // functions definitions
@@ -496,40 +502,11 @@ const startingSettings = () => {
   timer.style.top = '40%'
   timer.style.left = '3%'
   timer.textContent = "Let's Play!"
-}
-
-const decreaseStatus = () => {
-  let statusBars = document.querySelectorAll('.status-bar')
-  statusBars.forEach((bar) => {
-    let width = 150
-    let duration = 150000 // make it 150000
-    let interval = 10
-    let decreaseAmount = width / (duration / interval)
-
-    let timer = setInterval(() => {
-      if (width <= 120) {
-        bar.style.backgroundColor = 'rgb(145, 190, 23)'
-      }
-      if (width <= 90) {
-        bar.style.backgroundColor = 'rgb(215, 195, 45)'
-      }
-      if (width <= 30) {
-        bar.style.backgroundColor = 'rgb(215, 127, 45)'
-      }
-      if (width <= 10) {
-        bar.style.backgroundColor = 'rgb(238, 33, 33)'
-      }
-
-      if (width <= 0) {
-        clearInterval(timer)
-      } else {
-        width -= decreaseAmount
-        bar.style.width = width + 'px'
-      }
-    }, interval)
-
-    setTimeout(() => clearInterval(timer), duration)
-  })
+  health.textContent = dog.health
+  hunger.textContent = dog.hunger
+  happiness.textContent = dog.happiness
+  energy.textContent = dog.energy
+  dog.checkStatus()
 }
 
 const createButtons = () => {
@@ -631,9 +608,11 @@ const outcomes = (reaction) => {
     dialogue.textContent =
       "You gave Connor a boiled chicken with plain rice. He barely touched it, he's still sick."
   } else if (reaction.id === 'vet') {
+    dog.health += 40
     dialogue.textContent =
       "You spent $230 on Connor's vet visit. He received proper treatment and he feels better now."
   } else if (reaction.id === 'hope') {
+    dog.health -= 20
     dialogue.textContent =
       "Connor's condition is getting worse and worse. How heartless can you be?"
   }
@@ -650,19 +629,23 @@ const outcomes = (reaction) => {
     let index = Math.floor(Math.random() * 5) + 1
     if (chocolateType == 0) {
       if (index <= 3) {
+        dog.health += 20
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting. While you should have consulted a vet first, this worked anyway. Connor is now better.`
       } else if (index > 3) {
+        dog.health -= 60
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting, that's too much. You caused severe chemical burns to Connor's mouth.`
       }
     } else if (chocolateType == 1) {
       if (index <= 3) {
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting. Connor didn't need it since he only ate a small amount of milk chocolate. Fortunately, this didn't harm him.`
       } else if (index > 3) {
+        dog.health -= 70
         dialogue.textContent = `You used ${index}% hydrogen peroxide to induce vomiting, that's too much. Connor didn't need it since he only ate a small amount of white chocolate, and on top of that you caused his mouth severe chemical burns.`
       }
     }
   } else if (reaction.id === 'do-nothing') {
     if (chocolateType == 0) {
+      dog.health -= 80
       dialogue.textContent =
         'The type and amount of Chocolate that Connor ate were of severe toxicity, he suffered a seizure.'
     } else if (chocolateType == 1) {
@@ -690,17 +673,21 @@ const outcomes = (reaction) => {
     if (index == 0) {
       dialogue.textContent = `You tried to lure Connor with a treat but he didn't fall for it. Seems like he preferred finding his own treat in the street`
     } else if (index == 1) {
+      dog.happiness += 5
       dialogue.textContent = `You lured Connor with a treat. He quickly ran back towards you and jumped around begging for biscuits.`
     }
   }
 
   if (reaction.id === 'yell') {
+    dog.happiness -= 40
     dialogue.textContent =
       'You yell at Connor. He feels threatened and bites you. You deserve that, never yell at a doggie.'
   } else if (reaction.id === 'give-treat') {
     dialogue.textContent =
       "You try distracting Connor with a treat, but he thinks you're rewarding his behavior. He keeps on tearing the couch."
   } else if (reaction.id === 'take-walk') {
+    dog.happiness += 20
+    dog.energy -= 20
     dialogue.textContent =
       "You take Connor on a walk that stimulates his senses and drains his energy out. When you're back, Connor sleeps."
   }

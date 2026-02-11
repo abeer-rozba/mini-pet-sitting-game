@@ -12,9 +12,18 @@ html {
   visibility: hidden;
 }
 
+span {
+  color: white;
+  padding: 5px;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Pixelify Sans', sans-serif;
+}
+
 .status-bar {
   background-color: rgb(116, 194, 92);
   border-radius: 15px;
+  box-shadow: 2px 2px rgba(255, 255, 255, 0.656);
   width: 150px;
   color: white;
   padding: 5px;
