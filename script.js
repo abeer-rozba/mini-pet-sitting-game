@@ -99,15 +99,18 @@ class Dog {
     let index = Math.floor(Math.random() * 45)
     if (this.energy <= 10) index = 30
     if (index <= 20) {
+      this.hunger += 5
+      this.energy -= 5
       dialogue.textContent = `You walked Connor for ${index} minutes. He still feels energetic and ready for more activities`
     } else if (index > 20) {
+      this.hunger += 10
+      this.energy -= 10
       dialogue.textContent = `You walked Connor for ${index} minutes. He feels tired now. Connor takes a little nap.`
     }
-    this.energy -= 10
+    this.statusLimits()
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
     )
-    this.statusLimits()
   }
   play() {
     if (this.isUnhappy == true) {
@@ -117,7 +120,7 @@ class Dog {
     }
     let index = Math.floor(Math.random() * dogGames.length)
     this.happiness += 10
-    this.energy -= 10
+    this.energy -= 5
     dialogue.textContent = `You played ${dogGames[index]} with Connor. He enjoyed his time but the game left him a bit tired.`
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
@@ -133,13 +136,15 @@ class Dog {
     }
     let index = Math.floor(Math.random() * 30)
     if (index <= 15) {
+      this.health += 5
+      this.energy += 5
       dialogue.textContent = `Connor napped for ${index} minutes. He still feels tired and wants to sleep some more.`
     } else if (index > 15) {
+      this.health += 10
+      this.energy += 10
       dialogue.textContent = `Connor slept for ${index} minutes. He feels refreshed now. That was such a power nap!`
     }
-    this.health += 10
-    this.happiness -= 10
-    this.energy += 10
+    this.hunger += 5
     this.statusLimits()
     console.log(
       `Health: ${this.health} Hunger: ${this.hunger} Happiness: ${this.happiness} Energy: ${this.energy}`
