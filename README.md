@@ -33,12 +33,12 @@
 [] More animations and visuals
 
 ### Credits
-[Using local storage 1](https://stackoverflow.com/questions/32931196/how-to-pass-user-input-from-one-html-page-to-another-using-local-storage)
-[Using local storage 2](https://coreui.io/answers/how-to-get-an-item-from-localstorage-in-javascript/)
-[Navigating pages using JavaScript](https://stackoverflow.com/questions/4744751/how-do-i-redirect-with-javascript)
-[Div centering settings](https://www.reddit.com/r/webdev/comments/1diix0e/centering_a_div_nowadays_what_are_the_best/)
-[Vertical div alignment](https://stackoverflow.com/questions/9629312/align-text-to-left-and-vertically-center-in-div)
-[Mouse pointer effect](https://stackoverflow.com/questions/4564251/change-the-mouse-pointer-using-javascript)
-[Storing functions in arrays: JavaScript 1](https://stackoverflow.com/questions/3592468/can-i-store-javascript-functions-in-arrays)
-[Storing functions in arrays: JavaScript 2](https://www.geeksforgeeks.org/javascript/array-of-functions-in-javascript/)
-[Creating a timer in JavaScript](https://community.testmuai.com/t/how-can-i-create-a-simple-javascript-countdown-timer/31822/2)
+- [Using local storage 1](https://stackoverflow.com/questions/32931196/how-to-pass-user-input-from-one-html-page-to-another-using-local-storage)
+- [Using local storage 2](https://coreui.io/answers/how-to-get-an-item-from-localstorage-in-javascript/)
+- [Navigating pages using JavaScript](https://stackoverflow.com/questions/4744751/how-do-i-redirect-with-javascript)
+- [Div centering settings](https://www.reddit.com/r/webdev/comments/1diix0e/centering_a_div_nowadays_what_are_the_best/)
+- [Vertical div alignment](https://stackoverflow.com/questions/9629312/align-text-to-left-and-vertically-center-in-div)
+- [Mouse pointer effect](https://stackoverflow.com/questions/4564251/change-the-mouse-pointer-using-javascript)
+- [Storing functions in arrays: JavaScript 1](https://stackoverflow.com/questions/3592468/can-i-store-javascript-functions-in-arrays)
+- [Storing functions in arrays: JavaScript 2](https://www.geeksforgeeks.org/javascript/array-of-functions-in-javascript/)
+-[Creating a timer in JavaScript](https://community.testmuai.com/t/how-can-i-create-a-simple-javascript-countdown-timer/31822/2)
