@@ -17,20 +17,20 @@
 ### Getting Started
 1. Fork and clone this repository to your machine.
 2. Open the index.html in a live server.
-3. Otherwise navigate to this [live website](https://embarrassed-touch.surge.sh/) to play the game.
+3. Alternatively, you can navigate to this [live website](http://thepuppynanny.surge.sh/) to play the game.
 4. Now you can start the game.
 5. Take care of the dog and keep him healthy at all times!
 6. If any of the dog's status go under 20, you might get in trouble.
 7. Make wise decisions, your choices will affect the story.
 
 ### Future Updates
-[] Eliminating occasional bugs
-[] Adding sound effects to enhance user experience
-[] Adding a variety of dog breeds and personalities
-[] Adding more random events and reactions
-[] Allow users more control (ex. choose what to feed the dog, what games to play, how long to walk him...)
-[] Adding the option to choose between cat and dog, each having a different story
-[] More animations and visuals
+- [] Eliminating occasional bugs
+- [] Adding sound effects to enhance user experience
+- [] Adding a variety of dog breeds and personalities
+- [] Adding more random events and reactions
+- [] Allow users more control (ex. choose what to feed the dog, what games to play, how long to walk him...)
+- [] Adding the option to choose between cat and dog, each having a different story
+- [] More animations and visuals
 
 ### Credits
 - [Using local storage 1](https://stackoverflow.com/questions/32931196/how-to-pass-user-input-from-one-html-page-to-another-using-local-storage)

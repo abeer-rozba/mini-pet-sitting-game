@@ -610,7 +610,7 @@ const createButtons = () => {
 }
 
 const countdown = () => {
-  let time = 300
+  let time = 120
   const clock = setInterval(() => {
     if (gameEnded == true) {
       if (alertMessage) {
@@ -646,7 +646,7 @@ const countdown = () => {
       return
     }
 
-    if (time % 60 == 0 && events.length > 0) randomEvent()
+    if (time % 30 == 0 && events.length > 0) randomEvent()
   }, 1000)
 }
 
