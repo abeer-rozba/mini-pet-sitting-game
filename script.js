@@ -610,7 +610,7 @@ const createButtons = () => {
 }
 
 const countdown = () => {
-  let time = 120
+  let time = 150
   const clock = setInterval(() => {
     if (gameEnded == true) {
       if (alertMessage) {
