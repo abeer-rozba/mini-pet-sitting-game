@@ -15,7 +15,7 @@
 ![Main Game Display](./images/screenshots/game-display.png)
 
 ### Getting Started
-1. Navigate to this [live website](http://thepuppynanny.surge.sh/) to play the game.
+1. Navigate to this [live website](https://the-puppy-nanny.netlify.app/) to play the game.
 2. Take care of the dog and keep him healthy at all times!
 3. Make wise decisions, your choices will affect the story.
 
